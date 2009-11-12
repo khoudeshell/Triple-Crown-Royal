@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="eff6f737-480e-4908-8f54-ef15f2f464d0" name="Kurt@LOOSEY 2009-03-17 22:16:19" runUser="LOOSEY\Kurt" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <TestRunConfiguration name="horseleague" id="42418cb5-1873-4887-acb8-004a5e8195b0">
+    <Description>This is a default test run configuration for a local test run.</Description>
+    <Deployment runDeploymentRoot="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague\TestResults\Kurt_LOOSEY 2009-03-17 22_16_19">
+      <DeploymentItem filename="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague\bin\HorseLeague.dll" />
+      <DeploymentItem filename="C:\Program Files\Rhino\Rhino.Mocks.dll" />
+    </Deployment>
+    <CodeCoverage>
+      <Regular>
+        <CodeCoverageItem binaryFile="bin\HorseLeague.dll" pdbFile="bin\HorseLeague.pdb" instrumentInPlace="true" />
+      </Regular>
+    </CodeCoverage>
+    <TestTypeSpecific />
+  </TestRunConfiguration>
+  <ResultSummary outcome="Failed">
+    <Counters total="27" executed="27" passed="26" error="0" failed="1" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <Times creation="2009-03-17T22:16:19.4621936-04:00" queuing="2009-03-17T22:16:31.1489984-04:00" start="2009-03-17T22:16:32.6912160-04:00" finish="2009-03-17T22:17:18.2767648-04:00" />
+  <TestDefinitions>
+    <UnitTest name="ConstructorSetsPropertiesToDefaultValues" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="1ce65521-0241-6d29-9776-bd65fa9f09d5">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="71d79554-6ac5-45aa-be0f-4cbf8930502f" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="ConstructorSetsPropertiesToDefaultValues" />
+    </UnitTest>
+    <UnitTest name="RegisterPostReturnsViewIfNewPasswordDoesNotMatchConfirmPassword" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="e71c200c-6df8-01cf-9b57-16d2d6df888c">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="442cd47d-eacc-4df5-bc57-1f236cadf655" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="RegisterPostReturnsViewIfNewPasswordDoesNotMatchConfirmPassword" />
+    </UnitTest>
+    <UnitTest name="LoginPostRedirectsToReturnUrlIfLoginSuccessfulAndReturnUrlGiven" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="cc48d018-769a-738e-6b7a-d443b2dfe52f">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="541bd51b-b7ab-4072-9d92-7e204977edd0" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="LoginPostRedirectsToReturnUrlIfLoginSuccessfulAndReturnUrlGiven" />
+    </UnitTest>
+    <UnitTest name="ChangePasswordPostReturnsViewIfNewPasswordDoesNotMatchConfirmPassword" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="d41b7c0c-336f-a7c0-db53-01a33c0e50f6">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="d5e17d5c-126c-4a3d-9afe-02eab518bbb8" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="ChangePasswordPostReturnsViewIfNewPasswordDoesNotMatchConfirmPassword" />
+    </UnitTest>
+    <UnitTest name="RegisterPostReturnsViewIfEmailNotSpecified" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="87a0c7d1-ebf9-66fc-2675-f71a7adf6632">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="28040333-9070-435c-bc96-2986932ef89b" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="RegisterPostReturnsViewIfEmailNotSpecified" />
+    </UnitTest>
+    <UnitTest name="RegisterPostRedirectsHomeIfRegistrationSuccessful" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="ad657288-279d-6d86-3bcf-3cd96aa1f8d2">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="cd515689-e5e6-4fb0-a487-95b12fb6c853" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="RegisterPostRedirectsHomeIfRegistrationSuccessful" />
+    </UnitTest>
+    <UnitTest name="LoginPostReturnsViewIfUsernameNotSpecified" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="3809c6bd-13aa-04b2-8c2b-8729504ec38b">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="2c3fc527-8147-43f7-86e5-2ffdbd797194" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="LoginPostReturnsViewIfUsernameNotSpecified" />
+    </UnitTest>
+    <UnitTest name="RegisterPostReturnsViewIfPasswordIsTooShort" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="26aff360-adad-f0de-ca05-32e8d94dc8d5">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="b0256d7c-38c6-4bb1-a9fe-c83eb79eb1ef" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="RegisterPostReturnsViewIfPasswordIsTooShort" />
+    </UnitTest>
+    <UnitTest name="ChangePasswordGetReturnsView" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="ba4b6c00-73ed-4116-b355-d9d4ad3395ff">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="04be4e46-1605-42e2-8787-05745c268633" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="ChangePasswordGetReturnsView" />
+    </UnitTest>
+    <UnitTest name="ChangePasswordPostReturnsViewIfNewPasswordIsTooShort" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="dff5879f-c523-be98-f346-0624155cc91d">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="49f48abb-459a-479e-b4fb-a1386d744696" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="ChangePasswordPostReturnsViewIfNewPasswordIsTooShort" />
+    </UnitTest>
+    <UnitTest name="ConstructorSetsProperties" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="d3f4c6d4-158b-55d7-13ad-97ef8c52f141">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="1a4140ba-5d2c-4042-89d3-8497592dbd1b" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="ConstructorSetsProperties" />
+    </UnitTest>
+    <UnitTest name="ChangePasswordSuccess" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="4dbee2ce-2e61-0fae-887a-2407f7e17394">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="6e85c860-577c-410e-8ded-d406382c2cd4" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="ChangePasswordSuccess" />
+    </UnitTest>
+    <UnitTest name="LoginPostRedirectsHomeIfLoginSuccessfulButNoReturnUrlGiven" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="ff38476e-3b15-6555-e9e0-27c465560f13">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="19d1939c-61b0-4646-a97a-e604a53bfb85" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="LoginPostRedirectsHomeIfLoginSuccessfulButNoReturnUrlGiven" />
+    </UnitTest>
+    <UnitTest name="RegisterPostReturnsViewIfRegistrationFails" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="c15998e8-14b8-755b-595e-1799a9b935ca">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="2d07ae62-9171-4318-9eff-2458d8adc237" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="RegisterPostReturnsViewIfRegistrationFails" />
+    </UnitTest>
+    <UnitTest name="ChangePasswordPostRedirectsOnSuccess" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="6024cbe7-2915-1082-3f79-ffc094aea4c3">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="90b0e0ad-9b23-4b94-886b-2dad5f19c872" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="ChangePasswordPostRedirectsOnSuccess" />
+    </UnitTest>
+    <UnitTest name="LoginGet" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="50185bfd-a133-e132-7553-29c9b60463d6">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="0b2c398f-09f8-41d9-97bc-c7fc55f7e244" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="LoginGet" />
+    </UnitTest>
+    <UnitTest name="RegisterGet" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="34adafae-7d3b-0c3f-56dd-6f0cce89c4e7">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="b05ed870-8b20-45fd-b772-45c42a69c6e0" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="RegisterGet" />
+    </UnitTest>
+    <UnitTest name="Index" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="1346796b-7059-be3c-bce2-51c71defb0f6">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="be65db77-cf4e-4f5e-bcba-9c6d118f8f7a" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.HomeControllerTest, HorseLeague.Tests" name="Index" />
+    </UnitTest>
+    <UnitTest name="ChangePasswordPostReturnsViewIfCurrentPasswordNotSpecified" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="52c9455a-e431-2172-86b2-a8a649fdf1e6">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="b320356b-b3e3-4288-9e8d-9fffcfbef65b" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="ChangePasswordPostReturnsViewIfCurrentPasswordNotSpecified" />
+    </UnitTest>
+    <UnitTest name="LogOff" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="42e78f32-b5fe-cc01-0041-f45f9bccc817">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="319e9966-80d6-4e19-bc51-324edb63c424" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="LogOff" />
+    </UnitTest>
+    <UnitTest name="LoginPostReturnsViewIfUsernameOrPasswordIsIncorrect" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="4323cd6b-27c2-f28d-0509-255fefff7e15">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="4778674f-9e6e-431e-b0f1-c2a4aab65d52" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="LoginPostReturnsViewIfUsernameOrPasswordIsIncorrect" />
+    </UnitTest>
+    <UnitTest name="ChangePasswordPostReturnsViewIfProviderRejectsPassword" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="af34b776-e106-332b-e4a5-f7d02bcbe584">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="9f071f2a-5269-4a9f-8967-ac6c3e2a7508" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="ChangePasswordPostReturnsViewIfProviderRejectsPassword" />
+    </UnitTest>
+    <UnitTest name="TestIndex" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="47e7ba33-da58-e786-1344-d54d48f0b815">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="e7a36301-4a34-4a39-ab21-48e60527b024" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.ResultsControllerTest, HorseLeague.Tests" name="TestIndex" />
+    </UnitTest>
+    <UnitTest name="RegisterPostReturnsViewIfPasswordIsNull" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="6e649981-a712-fcba-094a-a2df73ccb7cd">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="e335cd88-ac9d-406b-bce6-22585077373c" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="RegisterPostReturnsViewIfPasswordIsNull" />
+    </UnitTest>
+    <UnitTest name="RegisterPostReturnsViewIfUsernameNotSpecified" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="c3d46fc6-a1a9-40d7-62a4-8e551119d5fa">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="28424b44-d42e-472c-8225-b91ffc0448a0" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="RegisterPostReturnsViewIfUsernameNotSpecified" />
+    </UnitTest>
+    <UnitTest name="LoginPostReturnsViewIfPasswordNotSpecified" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="e7e19c47-4346-6b89-f222-32fc510afa7d">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="aa2c25e1-c7f6-4d21-8163-a1e97c261087" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="LoginPostReturnsViewIfPasswordNotSpecified" />
+    </UnitTest>
+    <UnitTest name="ChangePasswordPostReturnsViewIfNewPasswordIsNull" storage="c:\documents and settings\kurt\my documents\visual studio 2008\projects\horseleague.tests\bin\debug\horseleague.tests.dll" id="dbf59b11-b36e-ce6f-5531-2370aed6e369">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="c955c600-d084-405f-b5b5-3c010f18197b" />
+      <TestMethod codeBase="C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\bin\Debug\HorseLeague.Tests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="HorseLeague.Tests.Controllers.AccountControllerTest, HorseLeague.Tests" name="ChangePasswordPostReturnsViewIfNewPasswordIsNull" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="ba4b6c00-73ed-4116-b355-d9d4ad3395ff" executionId="04be4e46-1605-42e2-8787-05745c268633" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6024cbe7-2915-1082-3f79-ffc094aea4c3" executionId="90b0e0ad-9b23-4b94-886b-2dad5f19c872" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="52c9455a-e431-2172-86b2-a8a649fdf1e6" executionId="b320356b-b3e3-4288-9e8d-9fffcfbef65b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d41b7c0c-336f-a7c0-db53-01a33c0e50f6" executionId="d5e17d5c-126c-4a3d-9afe-02eab518bbb8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dbf59b11-b36e-ce6f-5531-2370aed6e369" executionId="c955c600-d084-405f-b5b5-3c010f18197b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dff5879f-c523-be98-f346-0624155cc91d" executionId="49f48abb-459a-479e-b4fb-a1386d744696" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="af34b776-e106-332b-e4a5-f7d02bcbe584" executionId="9f071f2a-5269-4a9f-8967-ac6c3e2a7508" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4dbee2ce-2e61-0fae-887a-2407f7e17394" executionId="6e85c860-577c-410e-8ded-d406382c2cd4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d3f4c6d4-158b-55d7-13ad-97ef8c52f141" executionId="1a4140ba-5d2c-4042-89d3-8497592dbd1b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1ce65521-0241-6d29-9776-bd65fa9f09d5" executionId="71d79554-6ac5-45aa-be0f-4cbf8930502f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="50185bfd-a133-e132-7553-29c9b60463d6" executionId="0b2c398f-09f8-41d9-97bc-c7fc55f7e244" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ff38476e-3b15-6555-e9e0-27c465560f13" executionId="19d1939c-61b0-4646-a97a-e604a53bfb85" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cc48d018-769a-738e-6b7a-d443b2dfe52f" executionId="541bd51b-b7ab-4072-9d92-7e204977edd0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e7e19c47-4346-6b89-f222-32fc510afa7d" executionId="aa2c25e1-c7f6-4d21-8163-a1e97c261087" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3809c6bd-13aa-04b2-8c2b-8729504ec38b" executionId="2c3fc527-8147-43f7-86e5-2ffdbd797194" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4323cd6b-27c2-f28d-0509-255fefff7e15" executionId="4778674f-9e6e-431e-b0f1-c2a4aab65d52" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="42e78f32-b5fe-cc01-0041-f45f9bccc817" executionId="319e9966-80d6-4e19-bc51-324edb63c424" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="34adafae-7d3b-0c3f-56dd-6f0cce89c4e7" executionId="b05ed870-8b20-45fd-b772-45c42a69c6e0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ad657288-279d-6d86-3bcf-3cd96aa1f8d2" executionId="cd515689-e5e6-4fb0-a487-95b12fb6c853" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="87a0c7d1-ebf9-66fc-2675-f71a7adf6632" executionId="28040333-9070-435c-bc96-2986932ef89b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e71c200c-6df8-01cf-9b57-16d2d6df888c" executionId="442cd47d-eacc-4df5-bc57-1f236cadf655" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6e649981-a712-fcba-094a-a2df73ccb7cd" executionId="e335cd88-ac9d-406b-bce6-22585077373c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="26aff360-adad-f0de-ca05-32e8d94dc8d5" executionId="b0256d7c-38c6-4bb1-a9fe-c83eb79eb1ef" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c15998e8-14b8-755b-595e-1799a9b935ca" executionId="2d07ae62-9171-4318-9eff-2458d8adc237" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c3d46fc6-a1a9-40d7-62a4-8e551119d5fa" executionId="28424b44-d42e-472c-8225-b91ffc0448a0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1346796b-7059-be3c-bce2-51c71defb0f6" executionId="be65db77-cf4e-4f5e-bcba-9c6d118f8f7a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="47e7ba33-da58-e786-1344-d54d48f0b815" executionId="e7a36301-4a34-4a39-ab21-48e60527b024" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="04be4e46-1605-42e2-8787-05745c268633" testId="ba4b6c00-73ed-4116-b355-d9d4ad3395ff" testName="ChangePasswordGetReturnsView" computerName="LOOSEY" duration="00:00:00.3298634" startTime="2009-03-17T22:16:32.9816336-04:00" endTime="2009-03-17T22:16:34.4437360-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="90b0e0ad-9b23-4b94-886b-2dad5f19c872" testId="6024cbe7-2915-1082-3f79-ffc094aea4c3" testName="ChangePasswordPostRedirectsOnSuccess" computerName="LOOSEY" duration="00:00:00.0856365" startTime="2009-03-17T22:16:34.4737792-04:00" endTime="2009-03-17T22:16:34.5739232-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b320356b-b3e3-4288-9e8d-9fffcfbef65b" testId="52c9455a-e431-2172-86b2-a8a649fdf1e6" testName="ChangePasswordPostReturnsViewIfCurrentPasswordNotSpecified" computerName="LOOSEY" duration="00:00:00.0428780" startTime="2009-03-17T22:16:34.5839376-04:00" endTime="2009-03-17T22:16:34.6540384-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d5e17d5c-126c-4a3d-9afe-02eab518bbb8" testId="d41b7c0c-336f-a7c0-db53-01a33c0e50f6" testName="ChangePasswordPostReturnsViewIfNewPasswordDoesNotMatchConfirmPassword" computerName="LOOSEY" duration="00:00:00.0025933" startTime="2009-03-17T22:16:34.6540384-04:00" endTime="2009-03-17T22:16:34.6740672-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c955c600-d084-405f-b5b5-3c010f18197b" testId="dbf59b11-b36e-ce6f-5531-2370aed6e369" testName="ChangePasswordPostReturnsViewIfNewPasswordIsNull" computerName="LOOSEY" duration="00:00:00.0027726" startTime="2009-03-17T22:16:34.7141248-04:00" endTime="2009-03-17T22:16:34.7341536-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="49f48abb-459a-479e-b4fb-a1386d744696" testId="dff5879f-c523-be98-f346-0624155cc91d" testName="ChangePasswordPostReturnsViewIfNewPasswordIsTooShort" computerName="LOOSEY" duration="00:00:00.0028760" startTime="2009-03-17T22:16:34.7441680-04:00" endTime="2009-03-17T22:16:34.7641968-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9f071f2a-5269-4a9f-8967-ac6c3e2a7508" testId="af34b776-e106-332b-e4a5-f7d02bcbe584" testName="ChangePasswordPostReturnsViewIfProviderRejectsPassword" computerName="LOOSEY" duration="00:00:00.0030168" startTime="2009-03-17T22:16:34.7742112-04:00" endTime="2009-03-17T22:16:34.7942400-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6e85c860-577c-410e-8ded-d406382c2cd4" testId="4dbee2ce-2e61-0fae-887a-2407f7e17394" testName="ChangePasswordSuccess" computerName="LOOSEY" duration="00:00:00.0037085" startTime="2009-03-17T22:16:34.8042544-04:00" endTime="2009-03-17T22:16:34.8242832-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1a4140ba-5d2c-4042-89d3-8497592dbd1b" testId="d3f4c6d4-158b-55d7-13ad-97ef8c52f141" testName="ConstructorSetsProperties" computerName="LOOSEY" duration="00:00:01.0793899" startTime="2009-03-17T22:16:34.8342976-04:00" endTime="2009-03-17T22:16:35.9258672-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="71d79554-6ac5-45aa-be0f-4cbf8930502f" testId="1ce65521-0241-6d29-9776-bd65fa9f09d5" testName="ConstructorSetsPropertiesToDefaultValues" computerName="LOOSEY" duration="00:00:00.0048760" startTime="2009-03-17T22:16:35.9358816-04:00" endTime="2009-03-17T22:16:35.9559104-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0b2c398f-09f8-41d9-97bc-c7fc55f7e244" testId="50185bfd-a133-e132-7553-29c9b60463d6" testName="LoginGet" computerName="LOOSEY" duration="00:00:00.0037088" startTime="2009-03-17T22:16:35.9759392-04:00" endTime="2009-03-17T22:16:35.9859536-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="19d1939c-61b0-4646-a97a-e604a53bfb85" testId="ff38476e-3b15-6555-e9e0-27c465560f13" testName="LoginPostRedirectsHomeIfLoginSuccessfulButNoReturnUrlGiven" computerName="LOOSEY" duration="00:00:00.0226422" startTime="2009-03-17T22:16:35.9859536-04:00" endTime="2009-03-17T22:16:36.0260112-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="541bd51b-b7ab-4072-9d92-7e204977edd0" testId="cc48d018-769a-738e-6b7a-d443b2dfe52f" testName="LoginPostRedirectsToReturnUrlIfLoginSuccessfulAndReturnUrlGiven" computerName="LOOSEY" duration="00:00:00.0086455" startTime="2009-03-17T22:16:36.0360256-04:00" endTime="2009-03-17T22:16:36.0660688-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="aa2c25e1-c7f6-4d21-8163-a1e97c261087" testId="e7e19c47-4346-6b89-f222-32fc510afa7d" testName="LoginPostReturnsViewIfPasswordNotSpecified" computerName="LOOSEY" duration="00:00:00.0026461" startTime="2009-03-17T22:16:36.0760832-04:00" endTime="2009-03-17T22:16:36.0961120-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2c3fc527-8147-43f7-86e5-2ffdbd797194" testId="3809c6bd-13aa-04b2-8c2b-8729504ec38b" testName="LoginPostReturnsViewIfUsernameNotSpecified" computerName="LOOSEY" duration="00:00:00.0024983" startTime="2009-03-17T22:16:36.1061264-04:00" endTime="2009-03-17T22:16:36.1261552-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4778674f-9e6e-431e-b0f1-c2a4aab65d52" testId="4323cd6b-27c2-f28d-0509-255fefff7e15" testName="LoginPostReturnsViewIfUsernameOrPasswordIsIncorrect" computerName="LOOSEY" duration="00:00:00.0026796" startTime="2009-03-17T22:16:36.1361696-04:00" endTime="2009-03-17T22:16:36.1561984-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="319e9966-80d6-4e19-bc51-324edb63c424" testId="42e78f32-b5fe-cc01-0041-f45f9bccc817" testName="LogOff" computerName="LOOSEY" duration="00:00:00.0047193" startTime="2009-03-17T22:16:36.1662128-04:00" endTime="2009-03-17T22:16:36.1962560-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b05ed870-8b20-45fd-b772-45c42a69c6e0" testId="34adafae-7d3b-0c3f-56dd-6f0cce89c4e7" testName="RegisterGet" computerName="LOOSEY" duration="00:00:00.0041200" startTime="2009-03-17T22:16:36.2062704-04:00" endTime="2009-03-17T22:16:36.2262992-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cd515689-e5e6-4fb0-a487-95b12fb6c853" testId="ad657288-279d-6d86-3bcf-3cd96aa1f8d2" testName="RegisterPostRedirectsHomeIfRegistrationSuccessful" computerName="LOOSEY" duration="00:00:00.0170099" startTime="2009-03-17T22:16:36.2262992-04:00" endTime="2009-03-17T22:16:36.2563424-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="28040333-9070-435c-bc96-2986932ef89b" testId="87a0c7d1-ebf9-66fc-2675-f71a7adf6632" testName="RegisterPostReturnsViewIfEmailNotSpecified" computerName="LOOSEY" duration="00:00:00.0022896" startTime="2009-03-17T22:16:36.2863856-04:00" endTime="2009-03-17T22:16:36.3064144-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="442cd47d-eacc-4df5-bc57-1f236cadf655" testId="e71c200c-6df8-01cf-9b57-16d2d6df888c" testName="RegisterPostReturnsViewIfNewPasswordDoesNotMatchConfirmPassword" computerName="LOOSEY" duration="00:00:00.0024662" startTime="2009-03-17T22:16:36.3264432-04:00" endTime="2009-03-17T22:16:36.3464720-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e335cd88-ac9d-406b-bce6-22585077373c" testId="6e649981-a712-fcba-094a-a2df73ccb7cd" testName="RegisterPostReturnsViewIfPasswordIsNull" computerName="LOOSEY" duration="00:00:00.0023712" startTime="2009-03-17T22:16:36.3564864-04:00" endTime="2009-03-17T22:16:36.3665008-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b0256d7c-38c6-4bb1-a9fe-c83eb79eb1ef" testId="26aff360-adad-f0de-ca05-32e8d94dc8d5" testName="RegisterPostReturnsViewIfPasswordIsTooShort" computerName="LOOSEY" duration="00:00:00.0027000" startTime="2009-03-17T22:16:36.3865296-04:00" endTime="2009-03-17T22:16:36.4065584-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2d07ae62-9171-4318-9eff-2458d8adc237" testId="c15998e8-14b8-755b-595e-1799a9b935ca" testName="RegisterPostReturnsViewIfRegistrationFails" computerName="LOOSEY" duration="00:00:00.0063265" startTime="2009-03-17T22:16:36.4165728-04:00" endTime="2009-03-17T22:16:36.4366016-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="28424b44-d42e-472c-8225-b91ffc0448a0" testId="c3d46fc6-a1a9-40d7-62a4-8e551119d5fa" testName="RegisterPostReturnsViewIfUsernameNotSpecified" computerName="LOOSEY" duration="00:00:00.0032777" startTime="2009-03-17T22:16:36.4566304-04:00" endTime="2009-03-17T22:16:36.4666448-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="be65db77-cf4e-4f5e-bcba-9c6d118f8f7a" testId="1346796b-7059-be3c-bce2-51c71defb0f6" testName="Index" computerName="LOOSEY" duration="00:00:41.0764289" startTime="2009-03-17T22:16:36.4866736-04:00" endTime="2009-03-17T22:17:17.7259728-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+        <ErrorInfo>
+          <Message>Test method HorseLeague.Tests.Controllers.HomeControllerTest.Index threw exception:  System.InvalidOperationException: Previous method 'IHorseLeagueRepository.GetActiveRaces();' requires a return value or an exception to throw..</Message>
+          <StackTrace>    at Rhino.Mocks.Impl.RecordMockState.AssertPreviousMethodIsClose()
+   at Rhino.Mocks.Impl.RecordMockState.MethodCall(IInvocation invocation, MethodInfo method, Object[] args)
+   at Rhino.Mocks.MockRepository.MethodCall(IInvocation invocation, Object proxy, MethodInfo method, Object[] args)
+   at Rhino.Mocks.Impl.RhinoInterceptor.Intercept(IInvocation invocation)
+   at Castle.DynamicProxy.AbstractInvocation.Proceed()
+   at IHorseLeagueRepositoryProxyc9aa6111d037433ba064573a2a1dba45.GetUser(Guid userId)
+   at HorseLeague.Controllers.HomeController.Index() in C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague\Controllers\HomeController.cs:line 22
+   at HorseLeague.Tests.Controllers.HomeControllerTest.Index() in C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague.Tests\Controllers\HomeControllerTest.cs:line 35
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e7a36301-4a34-4a39-ab21-48e60527b024" testId="47e7ba33-da58-e786-1344-d54d48f0b815" testName="TestIndex" computerName="LOOSEY" duration="00:00:00.0056786" startTime="2009-03-17T22:17:17.7460016-04:00" endTime="2009-03-17T22:17:17.7660304-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

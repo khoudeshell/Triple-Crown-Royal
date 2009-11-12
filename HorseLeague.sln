@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HorseLeague", "HorseLeague.csproj", "{56D80238-8EE7-45E6-BD46-3C1C93A4BD8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HorseLeague.Tests", "..\HorseLeague.Tests\HorseLeague.Tests.csproj", "{C73790CE-EF0F-48A2-941C-461D6F15405A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0950E47A-1FC0-4448-9EB7-E7C71D1F6801}"
+	ProjectSection(SolutionItems) = preProject
+		horseleague.testrunconfig = horseleague.testrunconfig
+		HorseLeague.vsmdi = HorseLeague.vsmdi
+		HorseLeague1.vsmdi = HorseLeague1.vsmdi
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = HorseLeague1.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{56D80238-8EE7-45E6-BD46-3C1C93A4BD8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56D80238-8EE7-45E6-BD46-3C1C93A4BD8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56D80238-8EE7-45E6-BD46-3C1C93A4BD8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56D80238-8EE7-45E6-BD46-3C1C93A4BD8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C73790CE-EF0F-48A2-941C-461D6F15405A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C73790CE-EF0F-48A2-941C-461D6F15405A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C73790CE-EF0F-48A2-941C-461D6F15405A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C73790CE-EF0F-48A2-941C-461D6F15405A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
