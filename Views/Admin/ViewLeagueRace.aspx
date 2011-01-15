@@ -27,7 +27,7 @@
                 </tr>
                 <tr>
                     <td>Post Time:</td>
-                    <td><%= Html.TextBox("txtPost", this.Model.PostTime) %></td>
+                    <td><%= Html.TextBox("txtPost", this.Model.PostTimeEST) %></td>
                 </tr>
                 <tr>
                     <td>Is Active:</td>

@@ -315,6 +315,7 @@ namespace HorseLeague.Controllers
         MembershipCreateStatus CreateUser(string userName, string password, string email);
         bool ChangePassword(string userName, string oldPassword, string newPassword);
         string ResetPassword(string userName);
+        MembershipUser GetUser(string userName);
     }
 
     public class AccountMembershipService : IMembershipService
@@ -360,6 +361,11 @@ namespace HorseLeague.Controllers
         public string ResetPassword(string userName)
         {
             return _provider.ResetPassword(userName, null);
+        }
+
+        public MembershipUser GetUser(string userName)
+        {
+            return _provider.GetUser(userName, false);
         }
     }
 }

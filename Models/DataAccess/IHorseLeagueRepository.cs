@@ -8,7 +8,8 @@ namespace HorseLeague.Models.DataAccess
     {
         IList<LeagueRace> GetActiveRaces();
         IList<LeagueRace> GetAllRaces();
-        IList<LeagueRace> GetUserResults(System.Guid userId);
+        //IList<LeagueRace> GetUserResults(System.Guid userId);
+        IList<UserRaceDetail> GetUserResults(Guid userId);
         IList<LeagueRace> GetResults();
 
         IList<UserRaceDetail> GetUserPicks(int leagueRaceId, System.Guid userId);
@@ -17,6 +18,7 @@ namespace HorseLeague.Models.DataAccess
         IList<aspnet_User> GetUsersWithScratches(int leagueRaceId);
         IList<RaceDetail> GetScratches(int leagueRaceId);
         IList<ReportLeagueRaceBet> GetLeagueRaceBetReport(int leagueRaceId, BetTypes payoutType);
+        IList<ReportLeagueRaceBet> GetLeagueRaceBetReport(int leagueRacedId);
 
         aspnet_User GetUser(System.Guid userId);
         LeagueRace GetLeagueRace(int id);

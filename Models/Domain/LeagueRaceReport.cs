@@ -13,12 +13,11 @@ namespace HorseLeague.Models
         private IList<ReportLeagueRaceBet> _place;
         private IList<ReportLeagueRaceBet> _show;
 
-        public LeagueRaceReport(IList<ReportLeagueRaceBet> win,
-            IList<ReportLeagueRaceBet> place, IList<ReportLeagueRaceBet> show)
+        public LeagueRaceReport(IList<ReportLeagueRaceBet> results)
         {
-            _win = win;
-            _place = place;
-            _show = show;
+            _win = results.Where(x => x.BetType == Convert.ToInt32(HorseLeague.Models.BetTypes.Win)).ToList();
+            _place = results.Where(x => x.BetType == Convert.ToInt32(HorseLeague.Models.BetTypes.Place)).ToList();
+            _show = results.Where(x => x.BetType == Convert.ToInt32(HorseLeague.Models.BetTypes.Show)).ToList();
         }
 
         public IList<ReportLeagueRaceBet> Win

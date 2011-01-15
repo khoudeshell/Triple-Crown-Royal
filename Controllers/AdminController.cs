@@ -9,9 +9,10 @@ using HorseLeague.Models;
 
 namespace HorseLeague.Controllers
 {
+    [Authorize(Users = "kurt,stephanie")]
     public class AdminController : HorseLeagueController
     {
-        [Authorize]
+        [OutputCache(Duration=86400, VaryByParam="none")]
         public ActionResult Index()
         {
             this.ViewData["ScheduledRaces"] = this.Repository.GetAllRaces();
@@ -20,7 +21,6 @@ namespace HorseLeague.Controllers
             return View();
         }
 
-        [Authorize]
         public ActionResult ViewLeagueRace(int id)
         {
             initializeViewLeagueRace(id);
@@ -28,13 +28,12 @@ namespace HorseLeague.Controllers
             return View();
         }
 
-        [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult ViewLeagueRace(int id, FormCollection collection)
         {
             LeagueRaceDomain domain = initializeViewLeagueRace(id);
             
-            domain.PostTime = Convert.ToDateTime(collection["txtPost"]);
+            domain.PostTimeEST = Convert.ToDateTime(collection["txtPost"]);
             domain.IsActive = Convert.ToInt32(collection["txtIsActive"]);
             domain.FormUrl = Convert.ToString(collection["txtForm"]);
 
@@ -51,7 +50,6 @@ namespace HorseLeague.Controllers
             return lrd;
         }
 
-        [Authorize]
         public ActionResult AddHorse(int id)
         {
             RaceDetail rd = new RaceDetail();
@@ -63,7 +61,6 @@ namespace HorseLeague.Controllers
         }
 
 
-        [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult AddHorse(int id, FormCollection collection)
         {
@@ -105,14 +102,12 @@ namespace HorseLeague.Controllers
             return RedirectToAction("ViewLeagueRace", new { id = id });
         }
 
-        [Authorize]
         public ActionResult EditHorse(int id)
         {
             this.ViewData.Model = this.Repository.GetRaceDetail(id);
             return View();
         }
 
-        [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult EditHorse(int id, FormCollection collection)
         {
@@ -162,7 +157,6 @@ namespace HorseLeague.Controllers
             return View();
         }
 
-        [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult AddPayout(int id, BetTypes bet, FormCollection collection)
         {
@@ -245,7 +239,6 @@ namespace HorseLeague.Controllers
             return Convert.ToInt32(BetTypes.Show) != payout.BetType;
         }
 
-        [Authorize]
         public ActionResult FixUserPicks(int id, System.Guid userId)
         {
             this.ViewData.Model = new AdminUserLeagueRacePicksDomain(userId, id, this.Repository);
@@ -253,7 +246,6 @@ namespace HorseLeague.Controllers
             return View();
         }
 
-        [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult FixUserPicks(int id, System.Guid userId, FormCollection collection)
         {
@@ -276,7 +268,6 @@ namespace HorseLeague.Controllers
             return View();
         }
 
-        [Authorize]
         public ActionResult RecalcStandings()
         {
             this.Repository.RecalculateStandings();

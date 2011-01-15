@@ -11,10 +11,13 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using HorseLeague.Models.DataAccess;
 using System.Collections.Generic;
+using System.Text;
+using System.Web.Mail;
+using HorseLeague.Models.Domain;
 
 namespace HorseLeague.Models
 {
-    public class UserLeagueRacePicksDomain
+    public class UserLeagueRacePicksDomain : IEmailable
     {
         private readonly IHorseLeagueRepository _repository;
         private readonly System.Guid _userId;
@@ -79,7 +82,7 @@ namespace HorseLeague.Models
         {
             get
             {
-                return DateTime.Now.ToUniversalTime().Ticks < Convert.ToDateTime(this.LeagueRace.PostTime).ToUniversalTime().Ticks;
+                return DateTime.UtcNow < this.LeagueRace.PostTimeUTC;
             }
         }
 
@@ -101,6 +104,17 @@ namespace HorseLeague.Models
             this._repository.PersistUserPicks(this.UserPicks, this._leagueRaceId, this._userId);
         }
 
+        
+
+        private RaceDetail GetUserPickByType(BetTypes betType)
+        {
+            //return this._repository.GetRaceDetail(this.UserPicks.Where(x => 
+            //    x.BetType == Convert.ToInt32(betType)).Single().RaceDetailId);
+
+            return this.LeagueRace.RaceDetails.Where(rd => rd.RaceDetailId == (this.UserPicks.Where(x => 
+                x.BetType == Convert.ToInt32(betType)).Single().RaceDetailId)).FirstOrDefault();
+        }
+
         private void createAndAddUserRace(BetTypes betType, System.Guid userId, int raceDetailId,
             int leagueRaceId, IList<UserRaceDetail> userRaceDetails)
         {
@@ -113,5 +127,39 @@ namespace HorseLeague.Models
             urd.LeagueRaceId = leagueRaceId;
             userRaceDetails.Add(urd);
         }
+
+        #region IEmailable Members
+
+        public string Subject
+        {
+            get { return String.Format("Picks for {0}", this.LeagueRace.Race.Name); }
+        }
+
+        public string Body
+        {
+            get 
+            { 
+                StringBuilder emailBody = new StringBuilder();
+
+                CreatePickText(emailBody, BetTypes.Win);
+                CreatePickText(emailBody, BetTypes.Place);
+                CreatePickText(emailBody, BetTypes.Show);
+                CreatePickText(emailBody, BetTypes.Backup);
+
+                emailBody.AppendLine("");
+                emailBody.AppendLine("User id: " + this.UserId.ToString());
+
+                return emailBody.ToString();
+            }
+        }
+
+        private void CreatePickText(StringBuilder output, BetTypes betType)
+        {
+            RaceDetail rd = GetUserPickByType(betType);
+
+            output.AppendLine(String.Format("{0}: {1}-{2}", betType.ToString(),
+                rd.PostPosition, rd.Horse.Name));
+        }
+        #endregion
     }
 }

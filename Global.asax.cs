@@ -27,6 +27,9 @@ namespace HorseLeague
         protected void Application_Start()
         {
             RegisterRoutes(RouteTable.Routes);
-        }
+#if DEBUG
+            HibernatingRhinos.Profiler.Appender.LinqToSql.LinqToSqlProfiler.Initialize();
+#endif
+        } 
     }
 }

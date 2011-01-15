@@ -17,7 +17,7 @@ using System.Text;
 
 namespace HorseLeague.Views.Shared
 {
-    public class UIFunctions
+    public static class UIFunctions
     {
         public static IList<SelectListItem> PopulateHorseDropDown(IList<RaceDetail> raceDetails, IList<UserRaceDetail> userPicks,
             BetTypes betType, System.Guid userId)
@@ -187,6 +187,17 @@ namespace HorseLeague.Views.Shared
         public static string FormatROI(double number)
         {
             return number < 0 ? String.Format("({0})", FormatReportPercent(number)) : FormatReportPercent(number);
+        }
+
+        public delegate string MvcCacheCallback(HttpContextBase context);
+
+        public static object Substitute(this HtmlHelper html, MvcCacheCallback cb)
+        {
+            html.ViewContext.HttpContext.Response.WriteSubstitution(
+                c => HttpUtility.HtmlEncode(
+                    cb(new HttpContextWrapper(c))
+                ));
+            return null;
         }
     }
 }

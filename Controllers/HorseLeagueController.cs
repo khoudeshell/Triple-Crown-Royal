@@ -13,11 +13,11 @@ namespace HorseLeague.Controllers
         private readonly IHorseLeagueRepository _dataRepository;
         private IUserSecurity _convertor;
         
-        public HorseLeagueController() : this(new HorseLeagueRepository()) { }
+        public HorseLeagueController() : this(null) { }
 
         public HorseLeagueController(IHorseLeagueRepository dataRepository)
         {
-            this._dataRepository = dataRepository;
+            this._dataRepository = dataRepository ?? new HorseLeagueRepository();
         }
 
         public IUserSecurity Convertor

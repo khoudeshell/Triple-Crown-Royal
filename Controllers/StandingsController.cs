@@ -10,6 +10,7 @@ namespace HorseLeague.Controllers
 {
     public class StandingsController : HorseLeagueController
     {
+        [OutputCache(Duration = 2000, VaryByParam = "none")]
         [Authorize]
         public ActionResult Index()
         {
@@ -24,7 +25,9 @@ namespace HorseLeague.Controllers
             aspnet_User user = Repository.GetUser(id);
 
             this.ViewData["User"] = user;
-            this.ViewData["UserRaceResults"] = base.Repository.GetUserResults(id);
+            IList<UserRaceDetail> raceResults = base.Repository.GetUserResults(id);
+
+            this.ViewData["UserRaceResults"] = raceResults.Select(x => x.LeagueRace).Distinct().ToList();
 
             return View();
         }

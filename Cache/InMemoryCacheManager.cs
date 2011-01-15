@@ -16,8 +16,13 @@ namespace HorseLeague.Cache
     {
         #region ICacheManager Members
 
+        private const bool ENABLE_CACHE = true;
         public T Get<T>(CacheKey item, Func<T> callback)
         {
+
+            if (!ENABLE_CACHE)
+                return callback();
+
             T reqItem = (T) HttpRuntime.Cache.Get(item.Key);
             if (reqItem == null)  
             {

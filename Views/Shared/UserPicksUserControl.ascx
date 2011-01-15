@@ -20,10 +20,11 @@
             </tr>
             <tr>
                 <td>Post Time:</td>
-                <td><%=this.Model.LeagueRace.PostTime%></td>
+                <td><%=this.Model.LeagueRace.PostTimeEST%></td>
             </tr>
         </table>
     </fieldset>
+    <br />
     <%= Html.ValidationSummary() %>
 
     <% using (Html.BeginForm()) {%>

@@ -47,11 +47,13 @@ namespace HorseLeague.Models.DataAccess
 
     public class LeagueRaceBetTypeReportCacheKey : CacheKey
     {
-        private LeagueRaceBetTypeReportCacheKey(int leagueRaceId, BetTypes payoutType) : base(String.Format("HorseLeague:LeagueRaceBetTypeReport:{0}{1}", leagueRaceId.ToString(), Convert.ToInt32(payoutType).ToString()), null, DateTime.Now.AddMinutes(20)) { }
+        private LeagueRaceBetTypeReportCacheKey(int leagueRaceId) : 
+            base(String.Format("HorseLeague:LeagueRaceBetTypeReport:{0}", 
+            leagueRaceId.ToString()), null, DateTime.Now.AddMinutes(20)) { }
 
-        public static CacheKey Create(int leagueRaceId, BetTypes payoutType)
+        public static CacheKey Create(int leagueRaceId)
         {
-            return new LeagueRaceBetTypeReportCacheKey(leagueRaceId, payoutType);
+            return new LeagueRaceBetTypeReportCacheKey(leagueRaceId);
         }
     }
 
@@ -92,6 +94,17 @@ namespace HorseLeague.Models.DataAccess
         public static CacheKey Create()
         {
             return new AllUsersCacheKey();
+        }
+    }
+
+    public class UserCacheKey : CacheKey
+    {
+        private UserCacheKey(System.Guid userId) : base(String.Format("HorseLeague:UserCacheKey{0}", userId), 
+            null, DateTime.Now.AddMinutes(20)) { }
+
+        public static CacheKey Create(System.Guid userId)
+        {
+            return new UserCacheKey(userId);
         }
     }
 }

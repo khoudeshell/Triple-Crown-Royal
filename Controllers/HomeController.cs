@@ -5,15 +5,22 @@ using System.Web;
 using System.Web.Mvc;
 using HorseLeague.Models;
 using HorseLeague.Models.DataAccess;
+using HorseLeague.Helpers;
 
 namespace HorseLeague.Controllers
 {
     [HandleError]
     public class HomeController : HorseLeagueController
     {
-        public HomeController() : base() { }
+        private IMembershipService membershipService;
 
-        public HomeController(IHorseLeagueRepository repository) : base(repository) { }
+        public HomeController() : this(null, null) { }
+
+        public HomeController(IHorseLeagueRepository repository, IMembershipService membershipService) : 
+            base(repository) 
+        {
+            this.membershipService = membershipService ?? new AccountMembershipService();
+        }
 
         [Authorize]
         public ActionResult Index()
@@ -32,8 +39,7 @@ namespace HorseLeague.Controllers
         public ActionResult Picks(int id) 
         {
             this.ViewData.Model = new UserLeagueRacePicksDomain(Convertor.UserId, id, this.Repository);
-            //populatePicks(id, Convertor);
-
+          
             return View(); 
         }
 
@@ -57,6 +63,9 @@ namespace HorseLeague.Controllers
             }
 
             userDomain.UpdatePicks();
+            this.ViewData["SuccessMessage"] = "Picks updated successfully";
+
+            Emailer.SendEmail(userDomain, membershipService.GetUser(this.User.Identity.Name).Email);
             return View();
         }
     }

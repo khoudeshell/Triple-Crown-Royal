@@ -27,10 +27,26 @@ namespace HorseLeague.Models
 
         public RaceDetailPayout GetPayout(BetTypes payoutType)
         {
-            return this._repository.GetPayout(this._leagueRace, payoutType);
+            return this._leagueRace.RaceDetailPayouts.Where(x => x.BetType == Convert.ToInt32(payoutType)).FirstOrDefault();
+            //return this._repository.GetPayout(this._leagueRace, payoutType);
         }
 
-        public DateTime PostTime
+        public DateTime PostTimeEST
+        {
+            get
+            {
+                TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+
+                // Convert EST to local time
+                return TimeZoneInfo.ConvertTime(PostTimeUTC, TimeZoneInfo.Utc, est);
+            }
+            set
+            {
+                PostTimeUTC = value.ToUniversalTime();
+            }
+        }
+
+        public DateTime PostTimeUTC
         {
             get
             {

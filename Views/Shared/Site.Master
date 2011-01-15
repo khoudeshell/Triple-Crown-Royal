@@ -40,10 +40,11 @@
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
 
             <div id="footer">
-                Triple Crown Royal &copy; Copyright 2009
+                Triple Crown Royal &copy; Copyright <%=DateTime.Now.Year.ToString() %>
              </div>
         </div>
     </div>
+   
     <script type="text/javascript">
         var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
         document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
@@ -52,7 +53,7 @@
         try {
             var pageTracker = _gat._getTracker("UA-7783431-1");
             pageTracker._trackPageview();
-        } catch(err) {}
+        } catch (err) { }
     </script>
 </body>
 </html>

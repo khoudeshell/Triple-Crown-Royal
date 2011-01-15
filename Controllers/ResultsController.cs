@@ -11,7 +11,7 @@ namespace HorseLeague.Controllers
 {
     public class ResultsController : HorseLeagueController
     {
-        public ResultsController() : base() { }
+        public ResultsController() : this(null) { }
 
         public ResultsController(IHorseLeagueRepository repository) : base(repository) { }
 
@@ -26,11 +26,13 @@ namespace HorseLeague.Controllers
         [Authorize]
         public ActionResult Details(int id)
         {
-            IList<ReportLeagueRaceBet> win = this.Repository.GetLeagueRaceBetReport(id, HorseLeague.Models.BetTypes.Win);
-            IList<ReportLeagueRaceBet> place = this.Repository.GetLeagueRaceBetReport(id, HorseLeague.Models.BetTypes.Place);
-            IList<ReportLeagueRaceBet> show = this.Repository.GetLeagueRaceBetReport(id, HorseLeague.Models.BetTypes.Show);
+            IList<ReportLeagueRaceBet> results = this.Repository.GetLeagueRaceBetReport(id);
 
-            this.ViewData.Model = new LeagueRaceReport(win, place, show);
+            //IList<ReportLeagueRaceBet> win = this.Repository.GetLeagueRaceBetReport(id, HorseLeague.Models.BetTypes.Win);
+            //IList<ReportLeagueRaceBet> place = this.Repository.GetLeagueRaceBetReport(id, HorseLeague.Models.BetTypes.Place);
+            //IList<ReportLeagueRaceBet> show = this.Repository.GetLeagueRaceBetReport(id, HorseLeague.Models.BetTypes.Show);
+
+            this.ViewData.Model = new LeagueRaceReport(results);
             this.ViewData["LeagueRaceDomain"] = new LeagueRaceDomain(this.Repository.GetLeagueRace(id), this.Repository);
 
             return View();

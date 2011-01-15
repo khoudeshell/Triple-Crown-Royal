@@ -2,22 +2,18 @@
 using System.Data;
 using System.Configuration;
 using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
+
 using System.Xml.Linq;
 using System.Collections.Generic;
 using HorseLeague.Cache;
+using System.Data.Linq;
 
 namespace HorseLeague.Models.DataAccess
 {
     public class HorseLeagueRepository : HorseLeague.Models.DataAccess.IHorseLeagueRepository
     {
-        private readonly HorseLeagueDAODataContext dataContext;
         private readonly ICacheManager cache;
+        private readonly HorseLeagueDAODataContext dataContext;
 
         public event EventHandler<UserPicksEventArgs> OnPicksSet;
         public event EventHandler<LeagueRaceEventArgs> OnLeagueRaceChange;
@@ -26,8 +22,8 @@ namespace HorseLeague.Models.DataAccess
 
         public HorseLeagueRepository() 
         {
-            this.dataContext = new HorseLeagueDAODataContext();
             this.cache = CacheFactory.GetCacheManager();
+            this.dataContext = new HorseLeagueDAODataContext();
 
             this.OnPicksSet += new EventHandler<UserPicksEventArgs>(HorseLeagueRepository_OnPicksSet);
             this.OnLeagueRaceChange += new EventHandler<LeagueRaceEventArgs>(HorseLeagueRepository_OnLeagueRaceChange);
@@ -41,6 +37,11 @@ namespace HorseLeague.Models.DataAccess
         {
             return cache.Get(ActiveRacesCacheKey.Create(), () =>
             {
+                var loadOptions = new DataLoadOptions();
+                loadOptions.LoadWith<LeagueRace>(p => p.Race);
+
+                dataContext.LoadOptions = loadOptions;
+
                 var leagueRaces = from l in dataContext.LeagueRaces
                                   where l.IsActive == 1
                                   select l;
@@ -53,30 +54,55 @@ namespace HorseLeague.Models.DataAccess
         {
             return cache.Get(AllRacesCacheKey.Create(), () =>
             {
-                var leagueRaces = from l in dataContext.LeagueRaces
-                                  orderby l.Dt
-                                  select l;
-
-                return leagueRaces.ToList();
+                HorseLeagueDAODataContext dc = new HorseLeagueDAODataContext();
+                return GetAllRacesQuery(dc).ToList();
             });
+        }
+
+        private IQueryable<LeagueRace> GetAllRacesQuery(HorseLeagueDAODataContext dc)
+        {
+            var loadOptions = new DataLoadOptions();
+            loadOptions.LoadWith<LeagueRace>(p => p.Race);
+
+            dc.LoadOptions = loadOptions;
+
+            var leagueRaces = from l in dc.LeagueRaces
+                              orderby l.Dt
+                              select l;
+
+            return leagueRaces;
         }
 
         public LeagueRace GetLeagueRace(int id)
         {
-            return cache.Get(LeagueRaceCacheKey.Create(id), () =>
-            {
-                LeagueRace leagueRace = (from lr in dataContext.LeagueRaces
-                                         where lr.Id == id
-                                         select lr).First();
+           return cache.Get(LeagueRaceCacheKey.Create(id), () =>
+           {
+                HorseLeagueDAODataContext dc = new HorseLeagueDAODataContext();
+                IQueryable<LeagueRace> leagueRaceQuery = 
+                    GetAllRacesQuery(dc).Where(lr => lr.Id == id);
 
-                return leagueRace;
-            });
+                var loadOptions = new DataLoadOptions();
+                loadOptions.LoadWith<RaceDetail>(p => p.Horse);
+                loadOptions.LoadWith<RaceDetail>(p => p.RaceDetailPayout);
+                
+                dc.LoadOptions = loadOptions;
+
+                return leagueRaceQuery.ToList()[0];
+           });
         }
 
         public IList<LeagueRace> GetResults()
         {
             return cache.Get(ResultsCacheKey.Create(), () =>
             {
+                var loadOptions = new DataLoadOptions();
+                loadOptions.LoadWith<LeagueRace>(p => p.Race);
+                loadOptions.LoadWith<LeagueRace>(p => p.RaceDetailPayouts);
+                loadOptions.LoadWith<LeagueRace>(p => p.RaceDetails);
+                loadOptions.LoadWith<RaceDetail>(p => p.Horse);
+
+                dataContext.LoadOptions = loadOptions;
+
                 var results = from lr in dataContext.LeagueRaces
                               join rdp in dataContext.RaceDetailPayouts on lr.Id equals rdp.LeagueRaceId
                               select lr;
@@ -89,6 +115,11 @@ namespace HorseLeague.Models.DataAccess
         {
             return cache.Get(UserStandingsCacheKey.Create(), () =>
             {
+                var loadOptions = new DataLoadOptions();
+                loadOptions.LoadWith<UserStanding>(p => p.aspnet_User);
+
+                dataContext.LoadOptions = loadOptions;
+
                 return (from us in dataContext.UserStandings
                         where us.Yr.Year == leagueYear.Year
                         orderby us.Total descending
@@ -96,18 +127,40 @@ namespace HorseLeague.Models.DataAccess
             });
         }
 
-        public IList<LeagueRace> GetUserResults(Guid userId)
-        {
-            return cache.Get(UserResultsCacheKey.Create(userId), () =>
-            {
-                var userPicks = (from lr in dataContext.LeagueRaces
-                                 join rd in dataContext.RaceDetails on lr.Id equals rd.LeagueRaceId
-                                 join urd in dataContext.UserRaceDetails on rd.RaceDetailId equals urd.RaceDetailId
-                                 where urd.UserId == userId
-                                 select lr).Distinct();
+        //public IList<LeagueRace> GetUserResults(Guid userId)
+        //{
+        //    //return cache.Get(UserResultsCacheKey.Create(userId), () =>
+        //    //{
 
-                return userPicks.ToList();
-            });
+        //        var userPicks = (from lr in dataContext.LeagueRaces
+        //                         join rd in dataContext.RaceDetails on lr.Id equals rd.LeagueRaceId
+        //                         join urd in dataContext.UserRaceDetails on rd.RaceDetailId equals urd.RaceDetailId
+        //                         where urd.UserId == userId
+        //                         select lr).Distinct();
+
+        //        return userPicks.ToList();
+        //    //});
+        //}
+
+        public IList<UserRaceDetail> GetUserResults(Guid userId)
+        {
+            //return cache.Get(UserResultsCacheKey.Create(userId), () =>
+            //{
+            var loadOptions = new DataLoadOptions();
+            loadOptions.LoadWith<UserRaceDetail>(p => p.LeagueRace);
+            loadOptions.LoadWith<LeagueRace>(p => p.Race);
+            loadOptions.LoadWith<LeagueRace>(p => p.RaceDetailPayouts);
+            loadOptions.LoadWith<RaceDetailPayout>(p => p.RaceDetail);
+            loadOptions.LoadWith<RaceDetail>(p => p.Horse);
+
+            dataContext.LoadOptions = loadOptions;
+
+            var userPicks = (from urd in dataContext.UserRaceDetails
+                             where urd.UserId == userId
+                             select urd).Distinct();
+
+            return userPicks.ToList();
+            //});
         }
 
         public IList<aspnet_User> GetAllUsers()
@@ -154,15 +207,41 @@ namespace HorseLeague.Models.DataAccess
 
         public IList<ReportLeagueRaceBet> GetLeagueRaceBetReport(int leagueRacedId, BetTypes payoutType)
         {
-            return cache.Get(LeagueRaceBetTypeReportCacheKey.Create(leagueRacedId, payoutType), () =>
+            return cache.Get(LeagueRaceBetTypeReportCacheKey.Create(leagueRacedId), () =>
             {
-                return (from rlrb in dataContext.ReportLeagueRaceBets
+                var loadOptions = new DataLoadOptions();
+                loadOptions.LoadWith<ReportLeagueRaceBet>(p => p.RaceDetail);
+                loadOptions.LoadWith<RaceDetail>(p => p.Horse);
+
+                HorseLeagueDAODataContext dc = new HorseLeagueDAODataContext();
+
+                dc.LoadOptions = loadOptions;
+
+                return (from rlrb in dc.ReportLeagueRaceBets
                         where rlrb.RaceDetail.LeagueRace.Id == leagueRacedId && rlrb.BetType == Convert.ToInt32(payoutType)
                         orderby rlrb.UserBetCount descending
                         select rlrb).ToList();
             });
         }
 
+        public IList<ReportLeagueRaceBet> GetLeagueRaceBetReport(int leagueRacedId)
+        {
+            return cache.Get(LeagueRaceBetTypeReportCacheKey.Create(leagueRacedId), () =>
+            {
+                var loadOptions = new DataLoadOptions();
+                loadOptions.LoadWith<ReportLeagueRaceBet>(p => p.RaceDetail);
+                loadOptions.LoadWith<RaceDetail>(p => p.Horse);
+
+                HorseLeagueDAODataContext dc = new HorseLeagueDAODataContext();
+
+                dc.LoadOptions = loadOptions;
+
+                return (from rlrb in dc.ReportLeagueRaceBets
+                        where rlrb.RaceDetail.LeagueRace.Id == leagueRacedId
+                        orderby rlrb.UserBetCount descending
+                        select rlrb).ToList();
+            });
+        }
         public void PersistUserPicks(IList<UserRaceDetail> userPicks, int leagueRaceId, System.Guid userId)
         {
             //Delete 
@@ -180,16 +259,25 @@ namespace HorseLeague.Models.DataAccess
         public void PersistLeagueRace(LeagueRaceDomain leagueRace)
         {
             dataContext.ExecuteCommand(String.Format("UPDATE LeagueRace SET PostTime='{0}', IsActive={1}, FormUrl='{2}' WHERE Id={3}", 
-                leagueRace.PostTime, leagueRace.IsActive, leagueRace.FormUrl,leagueRace.Id));
+                leagueRace.PostTimeUTC, leagueRace.IsActive, leagueRace.FormUrl,leagueRace.Id));
 
             OnLeagueRaceChange(this, new LeagueRaceEventArgs(leagueRace.Id));
         }
 
         public aspnet_User GetUser(System.Guid userId)
         {
-            return (from user in dataContext.aspnet_Users
+            //return cache.Get(UserCacheKey.Create(userId), () =>
+            //{
+                var loadOptions = new DataLoadOptions();
+                loadOptions.LoadWith<aspnet_User>(p => p.UserRaceDetails);
+
+                HorseLeagueDAODataContext dc = new HorseLeagueDAODataContext();
+                dc.LoadOptions = loadOptions;
+
+                return (from user in dc.aspnet_Users
                         where user.UserId == userId
-                        select user).FirstOrDefault();
+                        select user).ToList<aspnet_User>()[0];
+            //});
         }
 
         public Horse GetHorse(string horseName)
@@ -212,7 +300,6 @@ namespace HorseLeague.Models.DataAccess
                     where (rd.BetType == Convert.ToInt32(payoutType)) && (rd.LeagueRaceId == leagueRace.Id)
                     select rd).FirstOrDefault();
         }
-
 
         public Horse PersistHorse(Horse horse)
         {
@@ -262,7 +349,7 @@ namespace HorseLeague.Models.DataAccess
         void HorseLeagueRepository_OnPicksSet(object sender, UserPicksEventArgs e)
         {
             //Refresh the dataContext
-            dataContext.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, dataContext.UserRaceDetails);
+            dataContext.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, dataContext.UserRaceDetails.Where(x => x.LeagueRaceId == e.LeagueRaceId && x.UserId == e.UserId));
 
             //Remove all cached races
             this.cache.Remove(ActiveRacesCacheKey.Create());
