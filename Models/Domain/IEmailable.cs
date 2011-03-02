@@ -7,7 +7,7 @@ namespace HorseLeague.Models.Domain
 {
     public interface IEmailable
     {
-        string Subject { get; }
-        string Body { get; }
+        string GetSubject(LeagueRace leagueRace);
+        string GetBody(LeagueRace leagueRace);
     }
 }

@@ -17,12 +17,12 @@
                     <th>Weight</th>   
                 </tr>
             <% int i = 1;
-                foreach (LeagueRace lr in (IEnumerable)ViewData["ScheduledRaces"])
+                foreach (HorseLeague.Models.Domain.LeagueRace lr in (IEnumerable)ViewData["ScheduledRaces"])
                { %>    
                     <tr>
                         <td><%=i%>.</td>
                         <td><%=Html.Encode(lr.Race.Name)  %></td>
-                        <td><%=lr.Dt.ToShortDateString() %></td>
+                        <td><%=lr.RaceDate.ToShortDateString() %></td>
                         <td align="center"><%=Html.Encode(lr.Race.Track) %></td>
                         <td align="center"><%=lr.Weight %></td>
                     </tr>

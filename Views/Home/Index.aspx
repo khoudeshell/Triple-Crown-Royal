@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage" %>
-<%@ Import Namespace="HorseLeague.Models.DataAccess" %> 
+<%@ Import Namespace="HorseLeague.Models.Domain" %> 
 <asp:Content ID="indexHead" ContentPlaceHolderID="head" runat="server">
     <title>Home Page</title>
 </asp:Content>
@@ -20,7 +20,7 @@
                 </tr>
             <%  int i = 1;
                 List<LeagueRace> lrs = ViewData["ActiveRaces"] as List<LeagueRace>;
-                HorseLeague.Models.UserDomain userDomain = ViewData["UserDomain"] as HorseLeague.Models.UserDomain;
+                UserLeague userDomain = ViewData["UserDomain"] as UserLeague;
                 
                 if (lrs == null || lrs.Count == 0)
                 {
@@ -34,7 +34,7 @@
                 {
                     foreach (LeagueRace lr in lrs)
                     {
-                        HorseLeague.Models.LeagueRaceDomain leagueRaceDomain = new HorseLeague.Models.LeagueRaceDomain(lr); %>    
+                    %>
                     <tr>
                         <td><%=i%>.</td>
                         <td align="center">
@@ -53,11 +53,11 @@
                                 }
                             %>
                         </td>
-                        <td><%=Html.Encode(leagueRaceDomain.Race.Name)%></td>
-                        <td align="center"><%=Html.Encode(leagueRaceDomain.Race.Track)%></td>
-                        <td align="center"><%=leagueRaceDomain.Weight%></td>
-                        <td align="center"><%=leagueRaceDomain.PostTimeEST%></td>
-                        <td align="center" class="table-cell-action"><a href="<%=leagueRaceDomain.FormUrl %>" target="_blank">Get Past Performances</a> | <%= picksSelected == true ? Html.ActionLink("Update Picks", "Picks", new { id = lr.Id }) : Html.ActionLink("Set Picks", "Picks", new { id = leagueRaceDomain.Id })%></td>
+                        <td><%=Html.Encode(lr.Race.Name)%></td>
+                        <td align="center"><%=Html.Encode(lr.Race.Track)%></td>
+                        <td align="center"><%=lr.Weight%></td>
+                        <td align="center"><%=lr.PostTimeEST%></td>
+                        <td align="center" class="table-cell-action"><a href="<%=lr.FormUrl %>" target="_blank">Get Past Performances</a> | <%= picksSelected == true ? Html.ActionLink("Update Picks", "Picks", new { id = lr.Id }) : Html.ActionLink("Set Picks", "Picks", new { id = lr.Id })%></td>
                     </tr>
             <% i++;
                     }

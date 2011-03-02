@@ -14,6 +14,7 @@ using HorseLeague.Models.DataAccess;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Text;
+using HorseLeague.Models.Domain;
 
 namespace HorseLeague.Views.Shared
 {
@@ -26,7 +27,7 @@ namespace HorseLeague.Views.Shared
 
             return PopulateHorseDropDown(raceDetails, (RaceDetail raceDetail) =>
             {
-                if (userRaceDetail != null && userRaceDetail.RaceDetailId == raceDetail.RaceDetailId)
+                if (userRaceDetail != null && userRaceDetail.RaceDetail == raceDetail)
                 {
                     return true;
                 }
@@ -64,7 +65,7 @@ namespace HorseLeague.Views.Shared
             {
                 item = new SelectListItem();
                 item.Text = FormatHorseNameForDisplay(rd.PostPosition, rd.Horse.Name);
-                item.Value = rd.RaceDetailId.ToString();
+                item.Value = rd.Id.ToString();
 
                 if (selectionEval(rd))
                 {
@@ -90,23 +91,32 @@ namespace HorseLeague.Views.Shared
         public static UserRaceDetail GetUserSelection(IList<UserRaceDetail> userPicks, BetTypes betType, System.Guid userId)
         {
             return (from up in userPicks
-                         where up.BetType == Convert.ToInt32(betType) && up.UserId == userId
+                         where up.BetType == betType && up.UserLeague.User.Id == userId
                          select up).FirstOrDefault();
         }
 
         public static RaceDetailPayout GetPayout(BetTypes payoutType, LeagueRace leagueRace)
         {
-            return new LeagueRaceDomain(leagueRace).GetPayout(payoutType);
+            var payout = leagueRace.GetPayout(payoutType);
+            if (payout == null)
+                payout = new RaceDetailPayout()
+                {
+                    RaceDetail = new RaceDetail()
+                    {
+                        Horse = new Horse()
+                    }
+                };
+            return payout;
         }
        
         public static RaceDetailPayout GetRaceDetailPayoutForAUserSelection(LeagueRace leagueRace, UserRaceDetail userSelection)
         {
-            return (from rdp in leagueRace.RaceDetailPayouts
-                                    where rdp.RaceDetailId == userSelection.RaceDetailId
-                                    select rdp).FirstOrDefault();
+            return (from rdp in leagueRace.RaceDetails
+                                    where rdp.Id == userSelection.RaceDetail.Id
+                                    select rdp).FirstOrDefault().RaceDetailPayout[0];
         }
 
-        public static string GetScratchString(LeagueRaceDomain leagueDomain)
+        public static string GetScratchString(LeagueRace leagueDomain)
         {
             IList<RaceDetail> scratches = leagueDomain.GetScratches();
 
@@ -130,7 +140,7 @@ namespace HorseLeague.Views.Shared
 
         public static string GetBetTypeValueFromPayout(double? amount)
         {
-            return (amount == null || amount == 0.0D) ? "-" : amount.ToString();
+            return (amount == null || amount == 0.0D) ? "-" : String.Format("{0:0.00}", amount);
         }
 
         public static BetTypes GetBetType(int betType)

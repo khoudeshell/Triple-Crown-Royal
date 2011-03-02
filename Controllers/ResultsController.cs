@@ -6,19 +6,18 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using HorseLeague.Models.DataAccess;
 using HorseLeague.Models;
+using HorseLeague.Models.Domain;
 
 namespace HorseLeague.Controllers
 {
     public class ResultsController : HorseLeagueController
     {
-        public ResultsController() : this(null) { }
-
-        public ResultsController(IHorseLeagueRepository repository) : base(repository) { }
+        public ResultsController() { }
 
         [Authorize]
         public ActionResult Index()
         {
-            this.ViewData["AllResults"] = this.Repository.GetResults();
+            this.ViewData["AllResults"] = this.UserLeague.League.LeagueRaces.Where(x => x.RaceDetailPayouts.Count > 0);
 
             return View();
         }
@@ -26,14 +25,11 @@ namespace HorseLeague.Controllers
         [Authorize]
         public ActionResult Details(int id)
         {
-            IList<ReportLeagueRaceBet> results = this.Repository.GetLeagueRaceBetReport(id);
-
-            //IList<ReportLeagueRaceBet> win = this.Repository.GetLeagueRaceBetReport(id, HorseLeague.Models.BetTypes.Win);
-            //IList<ReportLeagueRaceBet> place = this.Repository.GetLeagueRaceBetReport(id, HorseLeague.Models.BetTypes.Place);
-            //IList<ReportLeagueRaceBet> show = this.Repository.GetLeagueRaceBetReport(id, HorseLeague.Models.BetTypes.Show);
+            LeagueRace leagueRace = this.UserLeague.League.GetLeagueRace(id);
+            IList<ReportLeagueRaceBet> results = leagueRace.ReportLeagueRaceBets;
 
             this.ViewData.Model = new LeagueRaceReport(results);
-            this.ViewData["LeagueRaceDomain"] = new LeagueRaceDomain(this.Repository.GetLeagueRace(id), this.Repository);
+            this.ViewData["LeagueRaceDomain"] = leagueRace;
 
             return View();
         }

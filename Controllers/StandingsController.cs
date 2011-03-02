@@ -5,29 +5,30 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using HorseLeague.Models.DataAccess;
+using HorseLeague.Models.Domain;
 
 namespace HorseLeague.Controllers
 {
     public class StandingsController : HorseLeagueController
     {
-        [OutputCache(Duration = 2000, VaryByParam = "none")]
         [Authorize]
         public ActionResult Index()
         {
-            this.ViewData["UserStandings"] = base.Repository.GetUserStandings(DateTime.Now);
-
+            this.ViewData.Model = this.UserLeague.League;
+            
             return View();
         }
 
         [Authorize]
         public ActionResult Details(System.Guid id)
         {
-            aspnet_User user = Repository.GetUser(id);
+            User u = this.UserRepository.Get(id);
+            UserLeague ul = u.GetUserLeague(this.UserLeague.League);
 
-            this.ViewData["User"] = user;
-            IList<UserRaceDetail> raceResults = base.Repository.GetUserResults(id);
+            this.ViewData["UserLeague"] = ul;
+            IList<UserRaceDetail> raceResults = ul.UserRaceDetails;
 
-            this.ViewData["UserRaceResults"] = raceResults.Select(x => x.LeagueRace).Distinct().ToList();
+            this.ViewData["UserRaceResults"] = raceResults.Select(x => x.RaceDetail.LeagueRace).Distinct().ToList();
 
             return View();
         }

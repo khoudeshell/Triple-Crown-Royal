@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HorseLeague.Models.DataAccess.RaceDetail>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HorseLeague.Models.Domain.RaceDetail>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 	<title>AddHorse</title>
@@ -32,7 +32,7 @@
     <% } %>
 
     <div>
-        <%=Html.ActionLink("Back to List", "ViewLeagueRace", new { id = this.Model.LeagueRaceId })%>
+        <%=Html.ActionLink("Back to List", "ViewLeagueRace", new { id = this.Model.LeagueRace.Id })%>
     </div>
 
 </asp:Content>

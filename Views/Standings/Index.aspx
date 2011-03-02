@@ -1,5 +1,6 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HorseLeague.Models.Domain.League>" %>
 <%@ Import Namespace="HorseLeague.Models" %> 
+<%@ Import Namespace="HorseLeague.Models.Domain" %> 
 <%@ Import Namespace="HorseLeague.Models.DataAccess" %> 
 <%@ Import Namespace="HorseLeague.Views.Shared" %> 
 
@@ -38,11 +39,11 @@
             <%  int i = 1;
                 DateTime lastUpdateDate = DateTime.MinValue;
                 
-                foreach (UserStanding userStanding in (IEnumerable)ViewData["UserStandings"])
+                foreach (HorseLeague.Models.Domain.UserStandings userStanding in this.Model.UserStandings.OrderByDescending(x => x.Total))
                     { %>    
                     <tr>
                         <td><%=i%>.</td>
-                        <td><%=Html.ActionLink(userStanding.aspnet_User.UserName, "Details", new { id = userStanding.UserId })%></td>
+                        <td><%=Html.ActionLink(userStanding.UserLeague.User.UserName, "Details", new { id = userStanding.UserLeague.User.Id })%></td>
                         <td align="center"><%=userStanding.Total%></td>
                         <td align="center"><%=UIFunctions.FormatReportPercent(userStanding.ROI)%></td>  
                         <td align="center"><%=UIFunctions.FormatReportPercent(userStanding.WinFavPct)%></td>
@@ -71,5 +72,89 @@
                 </tr>
             </table> 
         </fieldset>
+        <br />
+        
+         <fieldset>
+            <legend>Exacta Standings</legend>
 
+            <table width="100%">
+                <tr>
+                    <th>#</th>
+                    <th>User</th>
+                    <th>Amount</th>
+                    <th>Race</th>
+                </tr>
+
+                <%
+                    IList<UserRaceExoticPayout> exactaPayouts = this.Model.GetExactaPayouts();
+                    int j=1;
+
+                    if (exactaPayouts.Count == 0)
+                    {
+                 %>
+                        <tr>
+                            <td colspan="4">No exacta winners</td>
+                        </tr>
+                 <%
+                    }
+                    else
+                    {
+                        foreach (UserRaceExoticPayout exactaPayout in exactaPayouts)
+                        {
+                 %>
+                        <tr>
+                            <td><%=j%></td>
+                            <td><%=exactaPayout.UserLeague.User.UserName%></td>
+                            <td><%=UIFunctions.FormatReportAverage(exactaPayout.RaceExoticPayout.Amount)%></td>
+                            <td><%=exactaPayout.RaceExoticPayout.LeagueRace.Race.Name%></td>
+                        </tr>
+                 <%
+                     j++;
+                        }
+                    }    
+                 %>
+            </table>
+        </fieldset>
+        <br />
+         <fieldset>
+            <legend>Trifecta Standings</legend>
+
+            <table width="100%"> 
+                <tr>
+                    <th>#</th>
+                    <th>User</th>
+                    <th>Amount</th>
+                    <th>Race</th>
+                </tr>
+
+                <%
+                    IList<UserRaceExoticPayout> trifectaPayouts = this.Model.GetTrifectaPayouts();
+                    int k=1;
+
+                    if (trifectaPayouts.Count == 0)
+                    {
+                 %>
+                        <tr>
+                            <td colspan="4">No trifecta winners</td>
+                        </tr>
+                 <%
+                    }
+                    else
+                    {
+                        foreach (UserRaceExoticPayout trifectaPayout in trifectaPayouts)
+                        {
+                 %>
+                        <tr>
+                            <td><%=k%></td>
+                            <td><%=trifectaPayout.UserLeague.User.UserName%></td>
+                            <td><%=trifectaPayout.RaceExoticPayout.Amount%></td>
+                            <td><%=trifectaPayout.RaceExoticPayout.LeagueRace.Race.Name%></td>
+                        </tr>
+                 <%
+                     k++;
+                        }
+                    }  
+                 %>
+            </table>
+        </fieldset>
 </asp:Content>

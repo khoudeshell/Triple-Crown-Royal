@@ -1,6 +1,6 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage" %>
+<%@ Import Namespace="HorseLeague.Models.Domain" %> 
 <%@ Import Namespace="HorseLeague.Models" %> 
-<%@ Import Namespace="HorseLeague.Models.DataAccess" %> 
 <%@ Import Namespace="HorseLeague.Views.Shared" %> 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -10,9 +10,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <fieldset>
         <%
-            aspnet_User user = (aspnet_User)this.ViewData["User"];
+            UserLeague userLeague = (UserLeague)this.ViewData["UserLeague"];
              %>
-        <legend>Results for <%=user.UserName%></legend>
+        <legend>Results for <%=userLeague.User.UserName%></legend>
             <table width="100%"> 
                 <tr>
                     <th>#</th>
@@ -38,7 +38,7 @@
                         <tr>
                             <td><%=i%>.</td>
                             <td><%=Html.Encode(leagueRace.Race.Name)%></td>
-                            <td><%=leagueRace.Dt.ToShortDateString()%></td>
+                            <td><%=leagueRace.RaceDate.ToShortDateString()%></td>
                             <td align="center">
                                 <table width="100%">
                                 <%  for (int j = 1; j < 4; j++)
@@ -58,8 +58,8 @@
                                                 payoutCalc = new ShowCalculator();
                                                 break;
                                         }
-                                        UserRaceDetail userSelection = UIFunctions.GetUserSelection(leagueRace.UserRaceDetails, betType, user.UserId);
-                                        RaceDetailPayout payout = UIFunctions.GetRaceDetailPayoutForAUserSelection(leagueRace, userSelection);
+                                        UserRaceDetail userSelection = userLeague.GetUserPickByType(leagueRace, betType);
+                                        RaceDetailPayout payout = userSelection.RaceDetail.GetRaceDetailPayout();
 
                                         payoutCalc.Payout = payout;
                                         
