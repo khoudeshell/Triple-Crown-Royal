@@ -1,5 +1,0 @@
-C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague\bin\HorseLeague.dll
-C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague\bin\HorseLeague.pdb
-C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague\obj\Release\ResolveAssemblyReference.cache
-C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague\obj\Release\HorseLeague.dll
-C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague\obj\Release\HorseLeague.pdb
