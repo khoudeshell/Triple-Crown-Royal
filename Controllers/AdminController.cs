@@ -6,17 +6,38 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using HorseLeague.Models.DataAccess;
 using HorseLeague.Models;
+using HorseLeague.Models.Domain;
+using SharpArch.Core.PersistenceSupport;
+using SharpArch.Web.NHibernate;
 
 namespace HorseLeague.Controllers
 {
     [Authorize(Users = "kurt,stephanie")]
     public class AdminController : HorseLeagueController
     {
-        [OutputCache(Duration=86400, VaryByParam="none")]
+        private readonly IHorseRepository horseRepository;
+        private readonly IRepository<LeagueRace> leagueRaceRepository;
+        private readonly IRepository<RaceDetail> raceDetailRepository;
+        private readonly IRepository<UserLeague> userLeagueRepository;
+        private readonly ILeagueRepository leagueRepository;
+
+        public AdminController(IHorseRepository horseRepository, 
+            IRepository<LeagueRace> leagueRaceRepository,
+            IRepository<RaceDetail> raceDetailRepository,
+            ILeagueRepository leagueRepository,
+            IRepository<UserLeague> userLeagueRepository)
+        {
+            this.horseRepository = horseRepository;
+            this.leagueRaceRepository = leagueRaceRepository;
+            this.raceDetailRepository = raceDetailRepository;
+            this.leagueRepository = leagueRepository;
+            this.userLeagueRepository = userLeagueRepository;
+        }
+
         public ActionResult Index()
         {
-            this.ViewData["ScheduledRaces"] = this.Repository.GetAllRaces();
-            this.ViewData["Users"] = this.Repository.GetAllUsers();
+            this.ViewData["ScheduledRaces"] = this.UserLeague.League.LeagueRaces;
+            this.ViewData["Users"] = this.UserRepository.GetAll();
             
             return View();
         }
@@ -29,31 +50,40 @@ namespace HorseLeague.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
+        [Transaction]
         public ActionResult ViewLeagueRace(int id, FormCollection collection)
         {
-            LeagueRaceDomain domain = initializeViewLeagueRace(id);
+            LeagueRace domain = initializeViewLeagueRace(id);
             
             domain.PostTimeEST = Convert.ToDateTime(collection["txtPost"]);
             domain.IsActive = Convert.ToInt32(collection["txtIsActive"]);
             domain.FormUrl = Convert.ToString(collection["txtForm"]);
 
-            this.Repository.PersistLeagueRace(domain);
+            this.leagueRaceRepository.SaveOrUpdate(domain);
 
             return View();
         }
 
-        private LeagueRaceDomain initializeViewLeagueRace(int id)
+        private LeagueRace initializeViewLeagueRace(int id)
         {
-            LeagueRaceDomain lrd = new LeagueRaceDomain(this.Repository.GetLeagueRace(id), this.Repository);
-            ViewData.Model = lrd; 
-            this.ViewData["UserScratches"] = this.Repository.GetUsersWithScratches(id);
-            return lrd;
+            LeagueRace leagueRace = this.UserLeague.League.GetLeagueRace(id);
+            ViewData.Model = leagueRace;
+
+            IList<User> usersWithScratches = this.UserRepository.GetUsersWithScratches(leagueRace);
+
+            this.ViewData["UserScratches"] = usersWithScratches;
+            this.ViewData[BetTypes.Exacta.ToString()] = leagueRace.RaceExoticPayouts.Where(x => x.BetType == BetTypes.Exacta).ToList();
+            this.ViewData[BetTypes.Trifecta.ToString()] = leagueRace.RaceExoticPayouts.Where(x => x.BetType == BetTypes.Trifecta).ToList();
+
+            return leagueRace;
         }
 
+       
         public ActionResult AddHorse(int id)
         {
             RaceDetail rd = new RaceDetail();
-            rd.LeagueRaceId = id;
+            LeagueRace leagueRace = this.UserLeague.League.GetLeagueRace(id);
+            rd.LeagueRace = leagueRace;
 
             this.ViewData.Model = rd;
 
@@ -62,6 +92,7 @@ namespace HorseLeague.Controllers
 
 
         [AcceptVerbs(HttpVerbs.Post)]
+        [Transaction(RollbackOnModelStateError=true)]
         public ActionResult AddHorse(int id, FormCollection collection)
         {
             #region Validation
@@ -81,37 +112,84 @@ namespace HorseLeague.Controllers
             }
             #endregion
 
-            Horse horse = this.Repository.GetHorse(horseName);
-            if (horse == null)
+            try
             {
-                //Horse didn't exist add it
-                horse = new Horse();
-                horse.Name = horseName;
 
-                horse = this.Repository.PersistHorse(horse);
+                Horse horse = this.horseRepository.GetHorseByName(horseName);
+                if (horse == null)
+                {
+                    //Horse didn't exist add it
+                    horse = new Horse();
+                    horse.Name = horseName;
+
+                    horse = this.horseRepository.SaveOrUpdate(horse);
+                }
+
+                LeagueRace leagueRace = this.UserLeague.League.GetLeagueRace(id);
+
+                //Add the new race detail
+                RaceDetail detail = new RaceDetail();
+                detail.Horse = horse;
+                detail.LeagueRace = leagueRace;
+                detail.PostPosition = post;
+                raceDetailRepository.SaveOrUpdate(detail);
+
+                //leagueRace.RaceDetails.Add(detail);
+               // leagueRaceRepository.SaveOrUpdate(leagueRace);
+
+                return RedirectToAction("ViewLeagueRace", new { id = id });
+            }
+            catch
+            {
+                this.leagueRaceRepository.DbContext.RollbackTransaction();
+                throw;
             }
             
-            //Add the new race detail
-            RaceDetail detail = new RaceDetail();
-            detail.Horse = horse;
-            detail.LeagueRaceId = id;
-            detail.PostPosition = post;
-
-            this.Repository.PersistRaceDetail(detail);
-
-            return RedirectToAction("ViewLeagueRace", new { id = id });
         }
 
-        public ActionResult EditHorse(int id)
+
+        public ActionResult AddExoticPayout(int id, BetTypes bet)
         {
-            this.ViewData.Model = this.Repository.GetRaceDetail(id);
+            this.ViewData.Model = leagueRaceRepository.Get(id);
+            this.ViewData["BetType"] = bet;
+
             return View();
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
+        [Transaction(RollbackOnModelStateError = true)]
+        public ActionResult AddExoticPayout(int id, BetTypes bet, FormCollection collection)
+        {
+            LeagueRace leagueRace = this.leagueRaceRepository.Get(id);
+            string amountTemp = collection["Amount"];
+            float amount = float.MinValue;
+            if(float.TryParse(amountTemp, out amount))
+            {
+                RaceExoticPayout payout = new RaceExoticPayout()
+                {
+                    Amount = amount,
+                    BetType = bet,
+                    LeagueRace = leagueRace
+                };
+
+                leagueRace.RaceExoticPayouts.Add(payout);
+                leagueRaceRepository.SaveOrUpdate(leagueRace);
+            }
+
+            return RedirectToAction("ViewLeagueRace", new { id = id }); 
+        }
+
+        public ActionResult EditHorse(int id)
+        {
+            this.ViewData.Model = raceDetailRepository.Get(id);
+            return View();
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        [Transaction]
         public ActionResult EditHorse(int id, FormCollection collection)
         {
-            RaceDetail rd = this.Repository.GetRaceDetail(id);
+            RaceDetail rd = raceDetailRepository.Get(id);
             this.ViewData.Model = rd;
                 
             #region Validation
@@ -144,7 +222,7 @@ namespace HorseLeague.Controllers
             rd.IsScratched = isScratched;
             rd.PostPosition = post;
 
-            this.Repository.UpdateRaceDetail(rd);
+            this.raceDetailRepository.SaveOrUpdate(rd);
 
             return RedirectToAction("ViewLeagueRace", new { id = rd.LeagueRace.Id }); 
         }
@@ -158,6 +236,7 @@ namespace HorseLeague.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
+        [Transaction]
         public ActionResult AddPayout(int id, BetTypes bet, FormCollection collection)
         {
             RaceDetailPayout payout = initializePayout(id, bet);
@@ -172,36 +251,39 @@ namespace HorseLeague.Controllers
             }
             
             string winAmountTemp = collection["WinAmount"];
-            double winAmount = double.MinValue;
-            if (isWinEnabled(payout) && !double.TryParse(winAmountTemp, out winAmount))
+            float winAmount = float.MinValue;
+            if (isWinEnabled(payout) && !float.TryParse(winAmountTemp, out winAmount))
             {
                 ModelState.AddModelError("WinAmount", "The win amount can not be blank");
                 return View();
             }
 
             string placeAmountTemp = collection["PlaceAmount"];
-            double placeAmount = double.MinValue;
-            if (isPlaceEnabled(payout) && !double.TryParse(placeAmountTemp, out placeAmount))
+            float placeAmount = float.MinValue;
+            if (isPlaceEnabled(payout) && !float.TryParse(placeAmountTemp, out placeAmount))
             {
                 ModelState.AddModelError("PlaceAmount", "The place amount can not be blank");
                 return View();
             }
 
             string showAmountTemp = collection["ShowAmount"];
-            double showAmount = double.MinValue;
-            if (!double.TryParse(showAmountTemp, out showAmount))
+            float showAmount = float.MinValue;
+            if (!float.TryParse(showAmountTemp, out showAmount))
             {
                 ModelState.AddModelError("ShowAmount", "The show amount can not be blank");
                 return View();
             }
             #endregion
 
-            payout.RaceDetailId = raceDetailId;
-            payout.WinAmount = (payout.BetType == Convert.ToInt32(BetTypes.Win)) ? (double?)winAmount : null;
-            payout.PlaceAmount = (payout.BetType != Convert.ToInt32(BetTypes.Show)) ? (double?)placeAmount : null;
+            RaceDetail raceDetail = raceDetailRepository.Get(raceDetailId);
+            payout.RaceDetail = raceDetail;
+            payout.WinAmount = payout.BetType == BetTypes.Win ? (float?)winAmount : null;
+            payout.PlaceAmount = payout.BetType != BetTypes.Show ? (float?)placeAmount : null;
             payout.ShowAmount = showAmount;
 
-            this.Repository.PersistRaceDetailPayout(payout);
+            raceDetail.RaceDetailPayout.Add(payout);
+
+            this.raceDetailRepository.SaveOrUpdate(raceDetail);
 
             return RedirectToAction("ViewLeagueRace", new { id = id }); 
 
@@ -209,70 +291,140 @@ namespace HorseLeague.Controllers
 
         private RaceDetailPayout initializePayout(int id, BetTypes bet)
         {
-            RaceDetailPayout payout = createPayout(id, bet);
+            LeagueRace leagueRace = this.UserLeague.League.GetLeagueRace(id);
+            RaceDetailPayout payout = new RaceDetailPayout()
+            {
+                BetType = bet,
+                LeagueRace = leagueRace
+            };
             
             this.ViewData.Model = payout;
-            this.ViewData["LeagueRace"] = this.Repository.GetLeagueRace(id);
+            this.ViewData["LeagueRace"] = leagueRace;
             this.ViewData["IsWinEnabled"] = isWinEnabled(payout);
             this.ViewData["IsPlaceEnabled"] = isPlaceEnabled(payout);
 
             return payout;
         }
 
-        private RaceDetailPayout createPayout(int leagueRaceId, BetTypes bet)
-        {
-            RaceDetailPayout payout = new RaceDetailPayout();
+        //private RaceDetailPayout createPayout(LeagueRace leagueRace, BetTypes bet)
+        //{
+        //    RaceDetailPayout payout = new RaceDetailPayout();
 
-            payout.BetType = Convert.ToInt32(bet);
-            payout.LeagueRaceId = leagueRaceId;
-
-            return payout;
-        }
+        //    payout.BetType = bet;
+            
+        //    return payout;
+        //}
 
         private bool isWinEnabled(RaceDetailPayout payout)
         {
-            return Convert.ToInt32(BetTypes.Win) == payout.BetType;
+            return BetTypes.Win == payout.BetType;
         }
 
         private bool isPlaceEnabled(RaceDetailPayout payout)
         {
-            return Convert.ToInt32(BetTypes.Show) != payout.BetType;
+            return BetTypes.Show != payout.BetType;
         }
 
         public ActionResult FixUserPicks(int id, System.Guid userId)
         {
-            this.ViewData.Model = new AdminUserLeagueRacePicksDomain(userId, id, this.Repository);
+            User user = this.UserRepository.Get(userId);
+            this.ViewData["UserDomain"] = user.GetUserLeague(this.UserLeague.League);
+            LeagueRace leagueRace = this.UserLeague.League.GetLeagueRace(id);
+
+            leagueRace.IsUpdateable = true;
+            this.ViewData.Model = leagueRace;
             
             return View();
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
+        [Transaction]
         public ActionResult FixUserPicks(int id, System.Guid userId, FormCollection collection)
         {
-            UserLeagueRacePicksDomain userDomain = new AdminUserLeagueRacePicksDomain(userId, id, this.Repository);
+            LeagueRace leagueRace = this.UserLeague.League.GetLeagueRace(id);
+            User user = this.UserRepository.Get(userId);
+            UserLeague userLeague = user.GetUserLeague(leagueRace.League);
+            this.ViewData["UserDomain"] = userLeague;
+            this.ViewData.Model = leagueRace;
+            
+            userLeague.AddUserPick(leagueRace,
+                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbWin"])).First(),
+                BetTypes.Win);
+            userLeague.AddUserPick(leagueRace,
+                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbPlace"])).First(),
+                BetTypes.Place);
+            userLeague.AddUserPick(leagueRace,
+                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbShow"])).First(),
+                BetTypes.Show);
+            userLeague.AddUserPick(leagueRace,
+                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbBackUp"])).First(),
+                BetTypes.Backup);
 
-            userDomain.UserPicks.Clear();
-            userDomain.AddUserPick(Convert.ToInt32(collection["cmbWin"]), BetTypes.Win);
-            userDomain.AddUserPick(Convert.ToInt32(collection["cmbPlace"]), BetTypes.Place);
-            userDomain.AddUserPick(Convert.ToInt32(collection["cmbShow"]), BetTypes.Show);
-            userDomain.AddUserPick(Convert.ToInt32(collection["cmbBackUp"]), BetTypes.Backup);
-
-            this.ViewData.Model = userDomain;
-            if (!userDomain.IsValidRaceCondition)
+            if (!userLeague.IsValidRaceCondition(leagueRace))
             {
                 ModelState.AddModelError("_FORM", "Put a separate horse for each bet type");
                 return View();
             }
 
-            userDomain.UpdatePicks();
+            this.userLeagueRepository.SaveOrUpdate(userLeague);
+            
             return View();
         }
 
+        [Transaction]
         public ActionResult RecalcStandings()
         {
-            this.Repository.RecalculateStandings();
+            leagueRepository.RecalculateStandings(this.UserLeague.League);
+
+            IList<User> users = this.UserRepository.GetAll();
+
+            foreach (User user in users)
+            {
+                UserLeague userLeague = user.GetUserLeague(this.UserLeague.League);
+                foreach(LeagueRace leagueRace in userLeague.League.LeagueRaces)
+                {
+                    RaceExoticPayout raceExactaPayout = leagueRace.RaceExoticPayouts.Where( x => x.BetType == BetTypes.Exacta).FirstOrDefault();
+                    RaceExoticPayout raceTrifectaPayout = leagueRace.RaceExoticPayouts.Where(x => x.BetType == BetTypes.Trifecta).FirstOrDefault();
+
+                    if (this.AddExoticWinner(userLeague, leagueRace, raceExactaPayout,
+                        (LeagueRace lr) =>
+                        {
+                            return userLeague.WasExactaWinner(lr);
+                        })
+                        &&
+                        this.AddExoticWinner(userLeague, leagueRace, raceTrifectaPayout,
+                            (LeagueRace lr) =>
+                            {
+                                return userLeague.WasTrifectaWinner(lr);
+                            }))
+                    {
+                        this.leagueRepository.SaveOrUpdate(userLeague.League);
+                    }
+                }
+            }
 
             return View();
         }
+
+        private bool AddExoticWinner(UserLeague userLeague,
+            LeagueRace leagueRace, RaceExoticPayout payout,
+            Func<LeagueRace, bool> wasWinner)
+        {
+            if (wasWinner(leagueRace))
+            {
+                userLeague.League.UserRaceExoticPayouts.Add(new UserRaceExoticPayout()
+                {
+                    RaceExoticPayout = payout,
+                    UserLeague = userLeague,
+                    League = userLeague.League
+                });
+
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }
+

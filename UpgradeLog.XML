@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="HorseLeague">
+</Property><Property Name="Solution File" Value="C:\Users\Kurt\Documents\HorseLeague\HorseLeague.sln">
+</Property><Property Name="Date" Value="Saturday, January 15, 2011">
+</Property><Property Name="Time" Value="10:56 AM">
+</Property></Properties><Event ErrorLevel="0" Project="HorseLeague" Source="HorseLeague.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="HorseLeague" Source="HorseLeague.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="HorseLeague.Tests" Source="..\HorseLeague.Tests\HorseLeague.Tests.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="HorseLeague.Tests" Source="..\HorseLeague.Tests\HorseLeague.Tests.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="C:\Users\Kurt\Documents\HRLeagueDB\HRLeagueDB.dbp" Source="..\HRLeagueDB\HRLeagueDB.dbp" Description="Beginning Upgrade">
+</Event><Event ErrorLevel="0" Project="C:\Users\Kurt\Documents\HRLeagueDB\HRLeagueDB.dbp" Source="..\HRLeagueDB\HRLeagueDB.dbp" Description="Converting deprecated dbp file 'C:\Users\Kurt\Documents\HRLeagueDB\HRLeagueDB.dbp' to 'C:\Users\Kurt\Documents\HRLeagueDB\HRLeagueDB.dbproj'">
+</Event><Event ErrorLevel="0" Project="C:\Users\Kurt\Documents\HRLeagueDB\HRLeagueDB.dbp" Source="..\HRLeagueDB\HRLeagueDB.dbp" Description="Successfully converted dbp to C:\Users\Kurt\Documents\HRLeagueDB\HRLeagueDB.dbproj">
+</Event><Event ErrorLevel="3" Project="C:\Users\Kurt\Documents\HRLeagueDB\HRLeagueDB.dbp" Source="..\HRLeagueDB\HRLeagueDB.dbp" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="HorseLeague.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="HorseLeague.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="HorseLeague" Source="HorseLeague.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="3" Project="" Source="horseleague.testrunconfig" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="horseleague.testrunconfig" Description="The file was converted to the current format.">
+</Event><Event ErrorLevel="3" Project="" Source="HorseLeague.vsmdi" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="HorseLeague.vsmdi" Description="The file was converted to the current format.">
+</Event><Event ErrorLevel="3" Project="" Source="HorseLeague1.vsmdi" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="HorseLeague1.vsmdi" Description="The file was converted to the current format.">
+</Event><Event ErrorLevel="3" Project="" Source="HorseLeague2.vsmdi" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="HorseLeague2.vsmdi" Description="The file was converted to the current format.">
+</Event><Event ErrorLevel="0" Project="HorseLeague.Tests" Source="..\HorseLeague.Tests\HorseLeague.Tests.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HorseLeague.Models.UserLeagueRacePicksDomain>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HorseLeague.Models.Domain.LeagueRace>" %>
 <%@ Import Namespace="HorseLeague.Models" %>
 <%@ Import Namespace="HorseLeague.Models.DataAccess" %> 
 <%@ Import Namespace="HorseLeague.Views.Shared" %> 

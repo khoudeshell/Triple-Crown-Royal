@@ -5,49 +5,52 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using HorseLeague.Models.DataAccess;
+using HorseLeague.Models.Domain;
 
 namespace HorseLeague.Controllers
 {
     public class HorseLeagueController : Controller
     {
-        private readonly IHorseLeagueRepository _dataRepository;
-        private IUserSecurity _convertor;
-        
+        private readonly IUserRepository _userRepository;
+        private User user;
+
         public HorseLeagueController() : this(null) { }
 
-        public HorseLeagueController(IHorseLeagueRepository dataRepository)
+        public HorseLeagueController(IUserRepository dataRepository)
         {
-            this._dataRepository = dataRepository ?? new HorseLeagueRepository();
+            this._userRepository = new UserRepository();
         }
 
-        public IUserSecurity Convertor
-        {
-            get
-            {
-                if (this._convertor == null)
-                {
-                    _convertor = new UserSecurity(this.ControllerContext);
-                }
-
-                return _convertor;
-            }
-            set
-            {
-                _convertor = value;
-            }
-        }
-
-        protected IHorseLeagueRepository Repository
+        protected User HorseUser
         {
             get
             {
-                return this._dataRepository;
+                if(user == null)
+                    user = this.UserRepository.GetByUserName(this.ControllerContext.HttpContext.User.Identity.Name);
+
+                return user;
             }
         }
+
+        protected UserLeague UserLeague
+        {
+            get
+            {
+                return HorseUser.UserLeagues[0];
+            }
+        }
+
+        protected IUserRepository UserRepository
+        {
+            get
+            {
+                return this._userRepository;
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-            _dataRepository.Dispose();
         }
     }
 }

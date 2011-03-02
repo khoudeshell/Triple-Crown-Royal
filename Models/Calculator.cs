@@ -9,8 +9,8 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
-using HorseLeague.Models.DataAccess;
 using System.Collections.Generic;
+using HorseLeague.Models.Domain;
 
 namespace HorseLeague.Models
 {
@@ -54,7 +54,7 @@ namespace HorseLeague.Models
         {
             get
             {
-                return (WinAmount + PlaceAmount + ShowAmount) * _payout.LeagueRace.Weight;
+                return (WinAmount + PlaceAmount + ShowAmount) * _payout.RaceDetail.LeagueRace.Weight;
             }
         }
     }

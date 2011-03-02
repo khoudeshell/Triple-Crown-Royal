@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using HorseLeague.Models.DataAccess;
+using HorseLeague.Models.Domain;
 
 
 namespace HorseLeague.Models
@@ -15,9 +16,9 @@ namespace HorseLeague.Models
 
         public LeagueRaceReport(IList<ReportLeagueRaceBet> results)
         {
-            _win = results.Where(x => x.BetType == Convert.ToInt32(HorseLeague.Models.BetTypes.Win)).ToList();
-            _place = results.Where(x => x.BetType == Convert.ToInt32(HorseLeague.Models.BetTypes.Place)).ToList();
-            _show = results.Where(x => x.BetType == Convert.ToInt32(HorseLeague.Models.BetTypes.Show)).ToList();
+            _win = results.Where(x => x.BetTypes == BetTypes.Win).ToList();
+            _place = results.Where(x => x.BetTypes == BetTypes.Place).ToList();
+            _show = results.Where(x => x.BetTypes == BetTypes.Show).ToList();
         }
 
         public IList<ReportLeagueRaceBet> Win

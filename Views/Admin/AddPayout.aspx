@@ -1,6 +1,6 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HorseLeague.Models.DataAccess.RaceDetailPayout>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HorseLeague.Models.Domain.RaceDetailPayout>" %>
 <%@ Import Namespace="HorseLeague.Models" %>
-<%@ Import Namespace="HorseLeague.Models.DataAccess" %> 
+<%@ Import Namespace="HorseLeague.Models.Domain" %> 
 <%@ Import Namespace="HorseLeague.Views.Shared" %> 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -16,7 +16,7 @@
 
     <% using (Html.BeginForm()) {%>
 
-    <% LeagueRace leagueRace = (LeagueRace)this.ViewData["LeagueRace"]; %>
+    <% LeagueRace leagueRace = this.ViewData["LeagueRace"] as LeagueRace; %>
         <fieldset>
             <legend>Fields</legend>
             <p>

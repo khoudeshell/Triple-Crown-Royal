@@ -10,3 +10,47 @@ C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLea
 C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague\obj\Debug\ResolveAssemblyReference.cache
 C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague\obj\Debug\HorseLeague.dll
 C:\Documents and Settings\Kurt\My Documents\Visual Studio 2008\Projects\HorseLeague\obj\Debug\HorseLeague.pdb
+C:\Users\Kurt\Documents\HorseLeague\bin\NHibernate.config
+C:\Users\Kurt\Documents\HorseLeague\bin\HorseLeague.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\HorseLeague.pdb
+C:\Users\Kurt\Documents\HorseLeague\bin\Antlr3.Runtime.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\Castle.Core.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\Castle.Windsor.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\CommonServiceLocator.WindsorAdapter.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\FluentNHibernate.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\Gallio.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\Iesi.Collections.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\Inflector.Net.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\log4net.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\MbUnit.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\Microsoft.Practices.ServiceLocation.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\MvcContrib.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\MvcContrib.FluentHtml.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\Newtonsoft.Json.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\NHibernate.ByteCode.Castle.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\NHibernate.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\NHibernate.Validator.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\nunit.framework.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\Remotion.Data.Linq.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\Rhino.Mocks.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\SharpArch.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\System.Data.Linq.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\Microsoft.Web.Mvc.dll
+C:\Users\Kurt\Documents\HorseLeague\bin\Castle.Core.xml
+C:\Users\Kurt\Documents\HorseLeague\bin\Castle.Windsor.xml
+C:\Users\Kurt\Documents\HorseLeague\bin\FluentNHibernate.xml
+C:\Users\Kurt\Documents\HorseLeague\bin\Iesi.Collections.xml
+C:\Users\Kurt\Documents\HorseLeague\bin\log4net.xml
+C:\Users\Kurt\Documents\HorseLeague\bin\MvcContrib.xml
+C:\Users\Kurt\Documents\HorseLeague\bin\MvcContrib.FluentHtml.xml
+C:\Users\Kurt\Documents\HorseLeague\bin\Newtonsoft.Json.xml
+C:\Users\Kurt\Documents\HorseLeague\bin\NHibernate.xml
+C:\Users\Kurt\Documents\HorseLeague\bin\NHibernate.ByteCode.Castle.xml
+C:\Users\Kurt\Documents\HorseLeague\bin\NHibernate.Validator.xml
+C:\Users\Kurt\Documents\HorseLeague\bin\nunit.framework.xml
+C:\Users\Kurt\Documents\HorseLeague\bin\Rhino.Mocks.xml
+C:\Users\Kurt\Documents\HorseLeague\bin\SharpArch.pdb
+C:\Users\Kurt\Documents\HorseLeague\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Kurt\Documents\HorseLeague\obj\Debug\HorseLeague.dll
+C:\Users\Kurt\Documents\HorseLeague\obj\Debug\HorseLeague.pdb
+C:\Users\Kurt\Documents\HorseLeague\bin\HibernatingRhinos.Profiler.Appender.dll

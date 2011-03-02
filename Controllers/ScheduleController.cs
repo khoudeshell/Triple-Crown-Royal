@@ -10,11 +10,10 @@ namespace HorseLeague.Controllers
 {
     public class ScheduleController : HorseLeagueController
     {
-        [OutputCache(Duration = 2592000, VaryByParam = "none")]
         [Authorize]
         public ActionResult Index()
         {
-            this.ViewData["ScheduledRaces"] = this.Repository.GetAllRaces();
+            this.ViewData["ScheduledRaces"] = this.UserLeague.League.LeagueRaces;
 
             return View();
         }

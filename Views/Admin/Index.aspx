@@ -17,12 +17,12 @@
                 <th>Track</th>           
             </tr>
         <% int i = 1;
-            foreach (LeagueRace lr in (IEnumerable)ViewData["ScheduledRaces"])
+            foreach (HorseLeague.Models.Domain.LeagueRace lr in (IEnumerable)ViewData["ScheduledRaces"])
            { %>    
                 <tr>
                     <td><%=i%>.</td>
                     <td><%=Html.ActionLink(Html.Encode(lr.Race.Name), "ViewLeagueRace", new {id = lr.Id}, null)   %></td>
-                    <td><%=lr.Dt.ToShortDateString() %></td>
+                    <td><%=lr.RaceDate.ToShortDateString() %></td>
                     <td align="center"><%=Html.Encode(lr.Race.Track) %></td>
                 </tr>
         <% i++;
@@ -42,7 +42,7 @@
                 <th>Action</th>
             </tr>
         <% i = 1;
-           foreach (aspnet_User user in (IEnumerable)ViewData["Users"])
+           foreach (HorseLeague.Models.Domain.User user in (IEnumerable)ViewData["Users"])
            { %>    
                 <tr>
                     <td><%=i%>.</td>

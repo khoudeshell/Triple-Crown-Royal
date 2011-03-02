@@ -7,6 +7,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.UI;
+using HorseLeague.Models.DataAccess;
+using Microsoft.Practices.ServiceLocation;
+using HorseLeague.Models.Domain;
+using SharpArch.Web.NHibernate;
 
 namespace HorseLeague.Controllers
 {
@@ -90,6 +94,7 @@ namespace HorseLeague.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
+        [Transaction]
         public ActionResult Register(string userName, string email, string password, string confirmPassword)
         {
 
@@ -321,15 +326,22 @@ namespace HorseLeague.Controllers
     public class AccountMembershipService : IMembershipService
     {
         private MembershipProvider _provider;
+        private readonly ILeagueRepository leagueRepository;
+        private readonly IUserRepository userRepository;
 
         public AccountMembershipService()
-            : this(null)
+            : this(null, ServiceLocator.Current.GetInstance<ILeagueRepository>(),
+                    ServiceLocator.Current.GetInstance<IUserRepository>())
         {
         }
 
-        public AccountMembershipService(MembershipProvider provider)
+        public AccountMembershipService(MembershipProvider provider, 
+            ILeagueRepository leagueRepository,
+            IUserRepository userRepository)
         {
             _provider = provider ?? Membership.Provider;
+            this.leagueRepository = leagueRepository;
+            this.userRepository = userRepository;
         }
 
         public int MinPasswordLength
@@ -349,9 +361,20 @@ namespace HorseLeague.Controllers
         {
             MembershipCreateStatus status;
             _provider.CreateUser(userName, password, email, null, null, true, null, out status);
+            if (status == MembershipCreateStatus.Success)
+            {
+                League league = this.leagueRepository.GetDefaultLeague();
+                User u = userRepository.GetByUserName(userName);
+                u.UserLeagues.Add(new UserLeague()
+                {
+                    League = league,
+                    User = u
+                });
+                userRepository.SaveOrUpdate(u);
+            }
             return status;
         }
-
+        
         public bool ChangePassword(string userName, string oldPassword, string newPassword)
         {
             MembershipUser currentUser = _provider.GetUser(userName, true /* userIsOnline */);
