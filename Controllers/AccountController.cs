@@ -11,6 +11,7 @@ using HorseLeague.Models.DataAccess;
 using Microsoft.Practices.ServiceLocation;
 using HorseLeague.Models.Domain;
 using SharpArch.Web.NHibernate;
+using HorseLeague.Logger;
 
 namespace HorseLeague.Controllers
 {
@@ -23,17 +24,19 @@ namespace HorseLeague.Controllers
         // the default forms authentication and membership providers.
 
         public AccountController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
         // This constructor is not used by the MVC framework but is instead provided for ease
         // of unit testing this type. See the comments at the end of this file for more
         // information.
-        public AccountController(IFormsAuthentication formsAuth, IMembershipService service)
+        public AccountController(IFormsAuthentication formsAuth, IMembershipService service,
+            ILogger logger)
         {
             FormsAuth = formsAuth ?? new FormsAuthenticationService();
             MembershipService = service ?? new AccountMembershipService();
+            Logger = logger ?? new Logger.Logger();
         }
 
         public IFormsAuthentication FormsAuth
@@ -43,6 +46,12 @@ namespace HorseLeague.Controllers
         }
 
         public IMembershipService MembershipService
+        {
+            get;
+            private set;
+        }
+
+        public ILogger Logger
         {
             get;
             private set;
@@ -67,6 +76,8 @@ namespace HorseLeague.Controllers
             }
 
             FormsAuth.SignIn(userName, rememberMe);
+            Logger.LogInfo("Signed in user: " + userName);
+
             if (!String.IsNullOrEmpty(returnUrl))
             {
                 return Redirect(returnUrl);
@@ -107,6 +118,8 @@ namespace HorseLeague.Controllers
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
+                    Logger.LogInfo(string.Format("Registered new user: {0}, email: {1}", userName, email));
+ 
                     FormsAuth.SignIn(userName, false /* createPersistentCookie */);
                     return RedirectToAction("Index", "Home");
                 }

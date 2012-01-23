@@ -22,6 +22,7 @@ namespace HorseLeague.Models.DataAccess.Mapping
 
             References<RaceDetail>(x => x.RaceDetail)
                 .Column("RaceDetailId")
+                .NotFound.Ignore()
                 .Fetch.Join()
                 .Cascade.None();
 

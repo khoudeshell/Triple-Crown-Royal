@@ -6,19 +6,23 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using HorseLeague.Models.DataAccess;
 using HorseLeague.Models.Domain;
+using HorseLeague.Logger;
 
 namespace HorseLeague.Controllers
 {
     public class HorseLeagueController : Controller
     {
         private readonly IUserRepository _userRepository;
+        private readonly ILogger _logger;
+
         private User user;
 
-        public HorseLeagueController() : this(null) { }
+        public HorseLeagueController() : this(null, null) { }
 
-        public HorseLeagueController(IUserRepository dataRepository)
+        public HorseLeagueController(IUserRepository dataRepository, ILogger logger)
         {
-            this._userRepository = new UserRepository();
+            this._userRepository = dataRepository ?? new UserRepository();
+            this._logger = logger ?? new Logger.Logger();
         }
 
         protected User HorseUser
@@ -40,6 +44,7 @@ namespace HorseLeague.Controllers
             }
         }
 
+     
         protected IUserRepository UserRepository
         {
             get
@@ -47,6 +52,8 @@ namespace HorseLeague.Controllers
                 return this._userRepository;
             }
         }
+
+        protected ILogger Logger { get { return _logger; } }
 
         protected override void Dispose(bool disposing)
         {

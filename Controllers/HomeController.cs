@@ -56,20 +56,10 @@ namespace HorseLeague.Controllers
         [Transaction]
         public ActionResult Picks(int id, FormCollection collection)
         {
-            LeagueRace leagueRace = this.UserLeague.League.GetLeagueRace(id);
+            Logger.LogInfo(string.Format("User: {0}, form: {1}", this.User.Identity.Name,
+                getFormCollection(collection)));
 
-            this.UserLeague.AddUserPick(leagueRace,
-                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbWin"])).First(),
-                BetTypes.Win);
-            this.UserLeague.AddUserPick(leagueRace,
-                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbPlace"])).First(),
-                BetTypes.Place);
-            this.UserLeague.AddUserPick(leagueRace,
-                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbShow"])).First(),
-                BetTypes.Show);
-            this.UserLeague.AddUserPick(leagueRace,
-                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbBackUp"])).First(),
-                BetTypes.Backup);
+            LeagueRace leagueRace = this.UserLeague.League.GetLeagueRace(id);
 
             this.ViewData.Model = leagueRace;
             this.ViewData["UserDomain"] = this.UserLeague;
@@ -86,11 +76,37 @@ namespace HorseLeague.Controllers
                 return View();
             }
 
+            this.UserLeague.AddUserPick(leagueRace,
+                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbWin"])).First(),
+                BetTypes.Win);
+            this.UserLeague.AddUserPick(leagueRace,
+                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbPlace"])).First(),
+                BetTypes.Place);
+            this.UserLeague.AddUserPick(leagueRace,
+                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbShow"])).First(),
+                BetTypes.Show);
+            this.UserLeague.AddUserPick(leagueRace,
+                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbBackUp"])).First(),
+                BetTypes.Backup);
+
             this.userLeagueRepository.SaveOrUpdate(this.UserLeague);
             this.ViewData["SuccessMessage"] = "Picks updated successfully";
+            Logger.LogInfo(string.Format("Saved picks for User: {0}", this.User.Identity.Name));
 
             Emailer.SendEmail(UserLeague, membershipService.GetUser(this.HorseUser.UserName).Email, leagueRace);
             return View();
+        }
+
+        private string getFormCollection(FormCollection collection)
+        {
+            string vals = string.Empty;
+
+            foreach (var key in collection.AllKeys)
+            {
+                vals += string.Format("key:{0},value{1};", key.ToString(), collection[key].ToString());
+            }
+
+            return vals;
         }
     }
 }

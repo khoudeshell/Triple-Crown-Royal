@@ -1,21 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Routing;
-using SharpArch.Web.Areas;
-using SharpArch.Web.ModelBinder;
-using SharpArch.Core.NHibernateValidator.ValidatorProvider;
-using HorseLeague.Controllers;
 using Castle.Windsor;
-using SharpArch.Web.Castle;
-using TripleCrownRoyal.Web.CastleWindsor;
 using CommonServiceLocator.WindsorAdapter;
+using HorseLeague.Controllers;
+
 using Microsoft.Practices.ServiceLocation;
-using SharpArch.Web.NHibernate;
+using SharpArch.Core.NHibernateValidator.ValidatorProvider;
 using SharpArch.Data.NHibernate;
-using System.Reflection;
+using SharpArch.Web.Areas;
+using SharpArch.Web.Castle;
+using SharpArch.Web.ModelBinder;
+using SharpArch.Web.NHibernate;
+using TripleCrownRoyal.Web.CastleWindsor;
+using System.Web;
 
 namespace HorseLeague
 {
@@ -26,7 +25,8 @@ namespace HorseLeague
     {
         protected void Application_Start()
         {
-            log4net.Config.XmlConfigurator.Configure();
+
+            Logger.Logger.Configure();
 
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new AreaViewEngine());
@@ -98,6 +98,8 @@ namespace HorseLeague
             // Useful for debugging
             Exception ex = Server.GetLastError();
             ReflectionTypeLoadException reflectionTypeLoadException = ex as ReflectionTypeLoadException;
+            
+            new Logger.Logger().LogError("Unhandled error", ex);
         }
 
         private WebSessionStorage webSessionStorage;
