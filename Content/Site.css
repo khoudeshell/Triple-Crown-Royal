@@ -99,3 +99,40 @@ table td
 	background-color: #DFF2BF;
 	background-image:url('/Content/success.png');
 }
+
+.uparrow
+{
+	background-image:url('/content/up_arrow.png');
+	background-repeat: no-repeat;
+	background-position: left;
+	color: #4F8A10;
+	display:block;
+	text-align:justify;
+	text-indent:15px;
+}
+
+.downarrow
+{
+	background-image:url('/content/down_arrow.png');
+	background-repeat: no-repeat;
+	background-position: left;
+	color: #B80F22;
+	display:block;
+	text-align:justify;
+	text-indent:15px;
+}
+
+.tooltip {
+	background-color:#000;
+	border:1px solid #fff;
+	padding:10px 15px;
+	width:200px;
+	display:none;
+	color:#fff;
+	text-align:left;
+	font-size:12px;
+
+	/* outline radius for mozilla/firefox only */
+	-moz-box-shadow:0 0 10px #000;
+	-webkit-box-shadow:0 0 10px #000;
+}

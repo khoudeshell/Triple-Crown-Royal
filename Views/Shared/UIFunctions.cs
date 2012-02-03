@@ -199,6 +199,26 @@ namespace HorseLeague.Views.Shared
             return number < 0 ? String.Format("({0})", FormatReportPercent(number)) : FormatReportPercent(number);
         }
 
+        public static string GetStandingDeltaClass(UserStandings standings)
+        {
+            int delta = standings.StandingDelta;
+
+            if (delta > 0)
+                return "uparrow";
+            else if (delta < 0 && standings.PrevPosition > 0)
+                return "downarrow";
+
+            return string.Empty;
+        }
+
+        public static string GetStandingDelta(UserStandings standings)
+        {
+            if (standings.PrevPosition == 0)
+                return "-";
+
+            return standings.StandingDelta.ToString();
+        }
+
         public delegate string MvcCacheCallback(HttpContextBase context);
 
         public static object Substitute(this HtmlHelper html, MvcCacheCallback cb)

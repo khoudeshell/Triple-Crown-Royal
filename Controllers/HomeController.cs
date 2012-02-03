@@ -61,6 +61,18 @@ namespace HorseLeague.Controllers
 
             LeagueRace leagueRace = this.UserLeague.League.GetLeagueRace(id);
 
+            this.UserLeague.AddUserPick(leagueRace,
+                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbWin"])).First(),
+                BetTypes.Win);
+            this.UserLeague.AddUserPick(leagueRace,
+                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbPlace"])).First(),
+                BetTypes.Place);
+            this.UserLeague.AddUserPick(leagueRace,
+                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbShow"])).First(),
+                BetTypes.Show);
+            this.UserLeague.AddUserPick(leagueRace,
+                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbBackUp"])).First(),
+                BetTypes.Backup);
             this.ViewData.Model = leagueRace;
             this.ViewData["UserDomain"] = this.UserLeague;
 
@@ -75,19 +87,6 @@ namespace HorseLeague.Controllers
                 ModelState.AddModelError("_FORM", "Put a separate horse for each bet type");
                 return View();
             }
-
-            this.UserLeague.AddUserPick(leagueRace,
-                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbWin"])).First(),
-                BetTypes.Win);
-            this.UserLeague.AddUserPick(leagueRace,
-                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbPlace"])).First(),
-                BetTypes.Place);
-            this.UserLeague.AddUserPick(leagueRace,
-                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbShow"])).First(),
-                BetTypes.Show);
-            this.UserLeague.AddUserPick(leagueRace,
-                leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbBackUp"])).First(),
-                BetTypes.Backup);
 
             this.userLeagueRepository.SaveOrUpdate(this.UserLeague);
             this.ViewData["SuccessMessage"] = "Picks updated successfully";

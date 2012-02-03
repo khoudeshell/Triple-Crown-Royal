@@ -27,5 +27,8 @@ namespace HorseLeague.Models.Domain
 	    public virtual float ShowShowAvg { get; set; }
 	    public virtual float WinFavPct { get; set; }
         public virtual float ROI { get; set; }
+        public virtual int CurPosition { get; set; }
+        public virtual int PrevPosition { get; set; }
+        public virtual int StandingDelta { get { return PrevPosition - CurPosition; } }
     }
 }

@@ -12,15 +12,16 @@
 
     <fieldset>
             <legend>User Standings</legend>
-            <table width="100%"> 
+            <table width="100%" id="standings"> 
                 <tr>
-                    <th rowspan="2">#</th>
+                    <th rowspan="2" title="Current position">#</th>
+                    <th rowspan="2" title="Change since last week">Chg</th>
                     <th rowspan="2">User</th>           
                     <th rowspan="2">Total</th>  
-                    <th rowspan="2">%<br />ROI</th>    
-                    <th rowspan="2">%<br />Fav</th>
-                    <th colspan="6">Average Payout ($)</th>
-                    <th colspan="6">Percent in Payout (%)</th>               
+                    <th rowspan="2" title="Return on Investment...If the picks would have been bet at the track">%<br />ROI</th>    
+                    <th rowspan="2" title="Percent of races that the favorite was picked for the winner">%<br />Fav</th>
+                    <th colspan="6" title="Average payouts based for the 6 types of bets">Average Payout ($)</th>
+                    <th colspan="6" title="Percent of the time the bet type paid out">Percent in Payout (%)</th>               
                 </tr>
                 <tr>
                     <th>WW</th>           
@@ -43,6 +44,7 @@
                     { %>    
                     <tr>
                         <td><%=i%>.</td>
+                        <td><span class="<%=UIFunctions.GetStandingDeltaClass(userStanding) %>"><%=UIFunctions.GetStandingDelta(userStanding)%></span></td>
                         <td><%=Html.ActionLink(userStanding.UserLeague.User.UserName, "Details", new { id = userStanding.UserLeague.User.Id })%></td>
                         <td align="center"><%=userStanding.Total%></td>
                         <td align="center"><%=UIFunctions.FormatReportPercent(userStanding.ROI)%></td>  

@@ -381,24 +381,27 @@ namespace HorseLeague.Controllers
             foreach (User user in users)
             {
                 UserLeague userLeague = user.GetUserLeague(this.UserLeague.League);
-                foreach(LeagueRace leagueRace in userLeague.League.LeagueRaces)
+                if (userLeague != null)
                 {
-                    RaceExoticPayout raceExactaPayout = leagueRace.RaceExoticPayouts.Where( x => x.BetType == BetTypes.Exacta).FirstOrDefault();
-                    RaceExoticPayout raceTrifectaPayout = leagueRace.RaceExoticPayouts.Where(x => x.BetType == BetTypes.Trifecta).FirstOrDefault();
+                    foreach (LeagueRace leagueRace in userLeague.League.LeagueRaces)
+                    {
+                        RaceExoticPayout raceExactaPayout = leagueRace.RaceExoticPayouts.Where(x => x.BetType == BetTypes.Exacta).FirstOrDefault();
+                        RaceExoticPayout raceTrifectaPayout = leagueRace.RaceExoticPayouts.Where(x => x.BetType == BetTypes.Trifecta).FirstOrDefault();
 
-                    if (this.AddExoticWinner(userLeague, leagueRace, raceExactaPayout,
-                        (LeagueRace lr) =>
-                        {
-                            return userLeague.WasExactaWinner(lr);
-                        })
-                        &&
-                        this.AddExoticWinner(userLeague, leagueRace, raceTrifectaPayout,
+                        if (this.AddExoticWinner(userLeague, leagueRace, raceExactaPayout,
                             (LeagueRace lr) =>
                             {
-                                return userLeague.WasTrifectaWinner(lr);
-                            }))
-                    {
-                        this.leagueRepository.SaveOrUpdate(userLeague.League);
+                                return userLeague.WasExactaWinner(lr);
+                            })
+                            &&
+                            this.AddExoticWinner(userLeague, leagueRace, raceTrifectaPayout,
+                                (LeagueRace lr) =>
+                                {
+                                    return userLeague.WasTrifectaWinner(lr);
+                                }))
+                        {
+                            this.leagueRepository.SaveOrUpdate(userLeague.League);
+                        }
                     }
                 }
             }

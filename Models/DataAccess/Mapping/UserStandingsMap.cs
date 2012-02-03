@@ -31,7 +31,9 @@ namespace HorseLeague.Models.DataAccess.Mapping
 	        Map(x => x.ShowShowAvg, "ShowShowAvg");
 	        Map(x => x.WinFavPct, "WinFavPct");
 	        Map(x => x.ROI, "ROI");
-	    
+            Map(x => x.CurPosition, "CurPosition");
+            Map(x => x.PrevPosition, "PrevPosition");
+
             References<UserLeague>(x => x.UserLeague)
                 .Column("UserLeagueId")
                 .Fetch.Join()
