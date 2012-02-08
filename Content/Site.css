@@ -64,6 +64,17 @@ div#title
     text-align:left;
 }
 
+div#paypal
+{
+    float:right;
+    height: 35px;
+}
+
+#creditcards
+{
+	height: 35px;
+}
+
 .table-cell-action
 {
 	width: 250px;

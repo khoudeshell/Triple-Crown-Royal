@@ -15,6 +15,7 @@ using SharpArch.Web.ModelBinder;
 using SharpArch.Web.NHibernate;
 using TripleCrownRoyal.Web.CastleWindsor;
 using System.Web;
+using HorseLeague.Models.DataAccess;
 
 namespace HorseLeague
 {
@@ -100,6 +101,20 @@ namespace HorseLeague
             ReflectionTypeLoadException reflectionTypeLoadException = ex as ReflectionTypeLoadException;
             
             new Logger.Logger().LogError("Unhandled error", ex);
+        }
+
+        protected void Application_PreRequestHandlerExecute(object sender, EventArgs e)
+        {
+            HttpApplication app = sender as HttpApplication;
+
+            if (app != null && app.Context.User != null && 
+                app.Context.User.Identity != null && 
+                app.Context.User.Identity.IsAuthenticated)
+            {
+                var user = new UserRepository().GetByUserName(app.Context.User.Identity.Name);
+                if (user != null)
+                    app.Context.Items["USER"] = user;
+            }
         }
 
         private WebSessionStorage webSessionStorage;

@@ -15,5 +15,22 @@ namespace HorseLeague.Models.Domain
         {
             return UserLeagues.Where(x => x.League == league).FirstOrDefault();
         }
+
+        public virtual bool HasPaid
+        {
+            get
+            {
+                bool hasPaid = true;
+                foreach (var ul in UserLeagues)
+                {
+                    hasPaid = hasPaid && (ul.HasPaid.HasValue ? ul.HasPaid.Value : false);
+                    if (!hasPaid)
+                        break;
+                }
+
+                return hasPaid;
+            }
+        }
+
     }
 }

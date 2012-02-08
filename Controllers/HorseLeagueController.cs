@@ -29,7 +29,10 @@ namespace HorseLeague.Controllers
         {
             get
             {
-                if(user == null)
+                if (user == null)
+                    user = this.ControllerContext.HttpContext.Items["USER"] as User;
+
+                if (user == null)
                     user = this.UserRepository.GetByUserName(this.ControllerContext.HttpContext.User.Identity.Name);
 
                 return user;

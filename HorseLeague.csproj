@@ -144,6 +144,7 @@
     <Compile Include="CastleWindsor\ComponentRegistrar.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HorseLeagueController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -228,6 +229,7 @@
     <Content Include="Views\Admin\Index.aspx" />
     <Content Include="Views\Admin\RecalcStandings.aspx" />
     <Content Include="Views\Admin\ViewLeagueRace.aspx" />
+    <Content Include="Views\Error\Index.aspx" />
     <Content Include="Views\Home\Picks.aspx" />
     <Content Include="Views\Results\Details.aspx" />
     <Content Include="Views\Results\Index.aspx" />

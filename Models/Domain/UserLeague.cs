@@ -12,6 +12,7 @@ namespace HorseLeague.Models.Domain
         public virtual IList<UserRaceDetail> UserRaceDetails { get; set; }
         public virtual User User { get; set; }
         public virtual League League { get; set; }
+        public virtual bool? HasPaid { get; set; }
 
         public virtual bool HasValidRaceCondition(LeagueRace leagueRace)
         {

@@ -14,6 +14,8 @@ namespace HorseLeague.Models.DataAccess.Mapping
             Table("UserLeague");
             Id(x => x.Id, "UserLeagueId");
 
+            Map(x => x.HasPaid);
+
             References<User>(x => x.User)
                 .Column("UserId")
                 .Fetch.Join()
