@@ -9,6 +9,7 @@ using HorseLeague.Models;
 using HorseLeague.Models.Domain;
 using SharpArch.Core.PersistenceSupport;
 using SharpArch.Web.NHibernate;
+using HorseLeague.Helpers;
 
 namespace HorseLeague.Controllers
 {
@@ -371,6 +372,26 @@ namespace HorseLeague.Controllers
             return View();
         }
 
+        public ActionResult TestEmail(string email)
+        {
+            Emailer.SendEmail(new EmailTester(), email, null);
+
+            return null;
+        }
+
+        private class EmailTester : IEmailable
+        {
+            public string GetSubject(LeagueRace leagueRace)
+            {
+                return "Test Subject";
+            }
+
+            public string GetBody(LeagueRace leagueRace)
+            {
+                return "Test Body";
+            }
+        }
+
         [Transaction]
         public ActionResult RecalcStandings()
         {
@@ -428,6 +449,7 @@ namespace HorseLeague.Controllers
             return false;
         }
 
+       
     }
 }
 

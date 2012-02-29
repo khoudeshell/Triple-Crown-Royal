@@ -14,11 +14,13 @@ namespace HorseLeague.Controllers
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
             routes.IgnoreRoute("{*allaspx}", new { allaspx = @".*\.aspx(/.*)?" });
+            routes.IgnoreRoute("{*robotstxt}", new { robotstxt = @"(.*/)?robots.txt(/.*)?" });
+            routes.IgnoreRoute("{*crossdomainxml}", new { crossdomainxml = @"(.*/)?crossdomain.xml(/.*)?" });
             
             routes.MapRoute(
-                "Default",                                              // Route name
-                "{controller}/{action}/{id}",                           // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional }  // Parameter defaults
+                "Default",                                              
+                "{controller}/{action}/{id}",                           
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional }  
             );
         }
     }

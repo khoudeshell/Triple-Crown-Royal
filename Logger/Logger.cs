@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using log4net;
+using System.Transactions;
 
 namespace HorseLeague.Logger
 {
@@ -29,7 +30,10 @@ namespace HorseLeague.Logger
                 if (HttpContext.Current.User != null && HttpContext.Current.User.Identity.IsAuthenticated)
                     log4net.LogicalThreadContext.Properties["user"] = HttpContext.Current.User.Identity.Name;
 
-                logIt(logger);
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress))
+                {
+                    logIt(logger);
+                }
             }
 
         }
