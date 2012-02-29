@@ -10,3 +10,9 @@ Models/Domain/AdminUserLeagueRacePicksDomain.cs
 Content/bg-main-corner-sprite.zip
 obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 obj/Debug/HorseLeague.csproj.FileListAbsolute.txt
+HorseLeague.suo
+bin/Antlr3.Runtime.dll
+HorseLeague.suo
+bin/*
+obj/*
+*.suo
