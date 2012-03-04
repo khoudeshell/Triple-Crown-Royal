@@ -40,7 +40,6 @@ namespace HorseLeague.Models.Domain
             return this.UserRaceExoticPayouts
                 .Where(x => x.RaceExoticPayout.BetType == betType)
                 .OrderByDescending(x => x.RaceExoticPayout.Amount)
-                .Take(5)
                 .ToList<UserRaceExoticPayout>();
         }
     }
