@@ -61,6 +61,12 @@ namespace HorseLeague.Controllers
 
             LeagueRace leagueRace = this.UserLeague.League.GetLeagueRace(id);
 
+            if (!leagueRace.IsUpdateable)
+            {
+                ModelState.AddModelError("_FORM", "This race is no longer eligible to change");
+                return View();
+            }
+
             this.UserLeague.AddUserPick(leagueRace,
                 leagueRace.RaceDetails.Where(x => x.Id == Convert.ToInt32(collection["cmbWin"])).First(),
                 BetTypes.Win);
@@ -75,12 +81,6 @@ namespace HorseLeague.Controllers
                 BetTypes.Backup);
             this.ViewData.Model = leagueRace;
             this.ViewData["UserDomain"] = this.UserLeague;
-
-            if (!leagueRace.IsUpdateable)
-            {
-                ModelState.AddModelError("_FORM", "This race is no longer eligible to change");
-                return View();
-            }
 
             if (!this.UserLeague.IsValidRaceCondition(leagueRace))
             {

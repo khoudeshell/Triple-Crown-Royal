@@ -16,3 +16,5 @@ HorseLeague.suo
 bin/*
 obj/*
 *.suo
+Scripts/HR League Schema.sql
+Scripts/2012 Schedule.sql
