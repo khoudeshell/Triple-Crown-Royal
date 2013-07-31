@@ -1,0 +1,254 @@
+USE [DB_26597_horsedb]
+GO
+/****** Object:  StoredProcedure [dbo].[CalculateUserTotals]    Script Date: 04/25/2013 19:34:43 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER   PROCEDURE [dbo].[CalculateUserTotals] 
+(
+	@LeagueId int
+)
+AS
+	DECLARE @curUser as int
+	DECLARE @Total as float
+	DECLARE @raceDetailId as int
+	DECLARE @betType as int
+	DECLARE @leagueRaceId as int
+	DECLARE @WinAmount as float
+	DECLARE @PlaceAmount as float
+	DECLARE @ShowAmount as float
+	DECLARE @Weight as int
+
+	/* Additional variables for detailed reports */
+	DECLARE @TotalRaces as int
+	DECLARE @TotalWinWin as float
+	DECLARE @TotalWinPlace as float
+	DECLARE @TotalWinShow as float
+	DECLARE @TotalPlacePlace as float
+	DECLARE @TotalPlaceShow as float
+	DECLARE @TotalShowShow as float
+	DECLARE @NumWinWin as float
+	DECLARE @NumWinPlace as float
+	DECLARE @NumWinShow as float
+	DECLARE @NumPlacePlace as float
+	DECLARE @NumPlaceShow as float
+	DECLARE @NumShowShow as float
+	DECLARE @NumWinFavorites as float
+	DECLARE @TotalUnWeighted as float
+	DECLARE @FavoriteId as int
+	DECLARE @ROI as float
+	/* ----------------------------------------- */
+
+	DECLARE @PREVSTANDINGS TABLE
+	(
+		UserLeagueId int,
+		LeagueId int,
+		CurPosition int
+	)
+	
+	INSERT @PREVSTANDINGS
+		SELECT UserLeagueID, LeagueID, CurPosition
+		FROM UserStandings
+		WHERE Year(Yr) = Year(GetDate()) 
+		
+	DELETE FROM dbo.UserStandings WHERE LeagueId = @LeagueId
+	DELETE FROM dbo.UserLeagueRaceExoticPayout WHERE LeagueId = @LeagueId
+
+	SET @TotalRaces = (SELECT COUNT(distinct Id) FROM LeagueRace lr INNER JOIN RaceDetailPayout rdp on lr.Id = rdp.LeagueRaceId WHERE Year(Dt) = Year(GetDate()))
+	PRINT 'TOTAL RACES: ' + CAST(@TotalRaces as varchar(30))
+
+	DECLARE curUsers Cursor
+	FOR
+	SELECT DISTINCT urd.UserLeagueId
+	FROM   dbo.UserRaceDetail urd 
+	INNER JOIN dbo.RaceDetailPayout rdp ON urd.RaceDetailId = rdp.RaceDetailId
+	 
+	OPEN curUsers  
+	FETCH NEXT FROM curUsers INTO @curUser
+
+	WHILE @@FETCH_STATUS = 0  
+	BEGIN 
+		SET @Total = 0
+		SET @TotalUnWeighted = 0
+		SET @TotalWinWin = 0
+		SET @TotalWinPlace  = 0
+		SET @TotalWinShow  = 0
+		SET @TotalPlacePlace  = 0
+		SET @TotalPlaceShow  = 0
+		SET @TotalShowShow  = 0
+		SET @NumWinWin  = 0
+		SET @NumWinPlace  = 0
+		SET @NumWinShow  = 0
+		SET @NumPlacePlace  = 0
+		SET @NumPlaceShow  = 0
+		SET @NumShowShow  = 0 
+		SET @NumWinFavorites = 0
+		SET @FavoriteId = -1
+
+		DECLARE curRaces Cursor
+		FOR
+		SELECT urd.RaceDetailId, urd.BetType, rdp.LeagueRaceId, rdp.WinAmount, rdp.PlaceAmount, rdp.SHowAmount
+		FROM   dbo.UserRaceDetail urd 
+		INNER JOIN dbo.RaceDetailPayout rdp ON urd.RaceDetailId = rdp.RaceDetailId
+		WHERE urd.UserLeagueId = @curUser AND urd.BetType < 4
+		ORDER BY rdp.LeagueRaceId, urd.BetType
+	
+		OPEN curRaces  
+		FETCH NEXT FROM curRaces INTO @raceDetailId, @betType, @leagueRaceId, @WinAmount, @PlaceAmount, @ShowAmount
+
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+			SET @Weight = (SELECT Weight FROM LeagueRace WHERE Id = @leagueRaceId)
+			
+			SET @WinAmount = ISNULL(@WinAmount, 0)
+			SET @PlaceAmount = ISNULL(@PlaceAmount, 0)
+			SET @ShowAmount = ISNULL(@ShowAmount, 0)
+
+			IF @BetType = 1 --WIN
+			BEGIN
+				Set @Total = @Total + ((@WinAMount + @PlaceAmount + @ShowAmount) * @Weight)
+				Set @TotalUnWeighted = @TotalUnWeighted + ((@WinAMount + @PlaceAmount + @ShowAmount))
+			
+				SET @TotalWinWin = @TotalWinWin + @WinAmount
+				SET @TotalWinPlace = @TotalWinPlace + @PlaceAmount
+				SET @TotalWinShow = @TotalWinShow + @ShowAmount
+
+				IF @WinAmount > 0
+				BEGIN 
+					SET @NumWinWin = @NumWinWin + 1
+				END
+				
+				IF @PlaceAmount > 0
+				BEGIN 
+					SET @NumWinPlace = @NumWinPlace + 1
+				END
+
+				IF @ShowAmount > 0
+				BEGIN 
+					SET @NumWinShow = @NumWinShow + 1
+				END
+				
+				SET @FavoriteId = (SELECT RaceDetailId from RaceDetails WHERE LeagueRaceId = @leagueRaceId and OddsOrder = 1)
+				
+				If @FavoriteId = @RaceDetailId
+				BEGIN
+					SET @NumWinFavorites = @NumWinFavorites + 1
+				END
+			END
+			ELSE IF @BetType = 2 --Place
+			BEGIN
+				Set @Total = @Total + ((@PlaceAmount + @ShowAmount) * @Weight)
+				Set @TotalUnWeighted = @TotalUnWeighted + ((@PlaceAmount + @ShowAmount))
+			
+				SET @TotalPlacePlace = @TotalPlacePlace + @PlaceAmount
+				SET @TotalPlaceShow = @TotalPlaceShow + @ShowAmount
+
+				IF @PlaceAmount > 0
+				BEGIN 
+					SET @NumPlacePlace = @NumPlacePlace + 1
+				END
+
+				IF @ShowAmount > 0
+				BEGIN 
+					SET @NumPlaceShow = @NumPlaceShow + 1
+				END
+				
+			END
+			ELSE IF @BetType = 3 --Show 
+			BEGIN
+				Set @Total = @Total + (@ShowAmount * @Weight)
+				Set @TotalUnWeighted = @TotalUnWeighted + (@ShowAmount)
+			
+				SET @TotalShowShow = @TotalShowShow + @ShowAmount
+
+				IF @ShowAmount > 0
+				BEGIN 
+					SET @NumShowShow = @NumShowShow + 1
+				END
+			END
+
+			FETCH NEXT FROM curRaces INTO @raceDetailId, @betType, @leagueRaceId, @WinAmount, @PlaceAmount, @ShowAmount
+		END 
+
+		CLOSE curRaces  
+		DEALLOCATE curRaces
+
+PRINT 'NumWinWIn: ' + CAST(@NumWinWin as varchar(100))
+PRINT 'Total Unweighted: ' + CAST(@TotalUnWeighted as varchar(100))
+
+		SET @ROI = (@TotalUnWeighted - (12 * @TotalRaces)) / (12 * @TotalRaces)
+
+		INSERT dbo.UserStandings
+		(
+			LeagueId,
+			UserLeagueId,
+			Yr,
+			Total,
+			UpdateDate,
+			WinWinPct,
+			WinPlacePct,
+			WinShowPct,
+			PlacePlacePct,
+			PlaceShowPct,
+			ShowShowPct,
+			WinWinAvg,
+			WinPlaceAvg,
+			WinShowAvg,
+			PlacePlaceAvg,
+			PlaceShowAvg,
+			ShowShowAvg,
+			WinFavPct,
+			ROI
+		)
+		VALUES
+		(
+			@LeagueId,
+			@curUser,
+			GetDate(),
+			@Total,
+			GetDate(),
+			@NumWinWin / @TotalRaces,
+			@NumWinPlace / @TotalRaces,
+			@NumWinShow / @TotalRaces,
+			@NumPlacePlace / @TotalRaces,
+			@NumPlaceShow / @TotalRaces,
+			@NumShowShow / @TotalRaces,
+			dbo.CalcAverage(@TotalWinWin, @NumWinWin),
+			dbo.CalcAverage(@TotalWinPlace, @NumWinPlace),
+			dbo.CalcAverage(@TotalWinShow, @NumWinShow),
+			dbo.CalcAverage(@TotalPlacePlace, @NumPlacePlace),
+			dbo.CalcAverage(@TotalPlaceShow, @NumPlaceShow),
+			dbo.CalcAverage(@TotalShowShow, @NumShowShow),
+			@NumWinFavorites / @TotalRaces,
+			@ROI
+		)
+
+       		FETCH NEXT FROM curUsers INTO @curUser  
+	END  
+
+	CLOSE curUsers  
+	DEALLOCATE curUsers
+	
+	--CALCULATE POSITIONS
+	DECLARE @Positions TABLE
+	(
+		Id int identity,
+		StandingId int
+	);
+	
+	INSERT @Positions
+		SELECT Id	
+		FROM UserStandings
+		ORDER BY Total Desc
+		
+	UPDATE UserStandings
+		SET CurPosition = (SELECT Id FROM @Positions p WHERE p.StandingId = UserStandings.Id)
+	
+	UPDATE UserStandings
+		SET PrevPosition = (SELECT CurPosition FROM @PREVSTANDINGS p WHERE p.LeagueId = UserStandings.LeagueId AND p.UserLeagueId = UserStandings.UserLeagueId)
+		
+	--NOW LETS CALCULATE ALL THE REPORT TOTALS PER RACE
+	EXEC ResetUserPickCountReport
+	

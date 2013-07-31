@@ -147,3 +147,13 @@ table td
 	-moz-box-shadow:0 0 10px #000;
 	-webkit-box-shadow:0 0 10px #000;
 }
+
+.announcement 
+{
+	position: relative;
+	top: 5px;
+	border: 2px solid #ccc; 
+	padding: 4px 4px 4px 4px;
+	font-weight: bold;
+	color: Red
+}
